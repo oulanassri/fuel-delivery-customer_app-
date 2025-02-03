@@ -21,11 +21,7 @@ class ProfileScreen extends GetView<ProfileController> {
         body: Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-                primaryColor,
-                Colors.grey,
-                primaryColor,
-              ]),
+              gradient:gradientColorBg,
             ),
             child: Column()
 

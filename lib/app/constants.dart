@@ -6,7 +6,15 @@ const white=Colors.white;
 
 const defaultPadding=16.00;
 
+const primaryText=Colors.black;
+const secondaryText=secondaryColor;
 
+
+const gradientColorBg=LinearGradient(begin: Alignment.topCenter, colors: [
+  bgColor,
+  Colors.grey,
+  bgColor,
+]);
 // const primaryColor=Color(0xFF169990);
 // const secondaryColor=Color(0xFF556881);
 // const bgColor=Colors.grey;
