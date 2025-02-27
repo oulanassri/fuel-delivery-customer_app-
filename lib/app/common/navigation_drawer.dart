@@ -4,6 +4,7 @@ import 'package:fluttericon/maki_icons.dart';
 import 'package:get/get.dart';
 import 'package:icofont_flutter/icofont_flutter.dart';
 
+import '../../native_service/get_storage.dart';
 import '../../routes/app_routes.dart';
 
 class CustomNavigationDrawer extends StatelessWidget {
@@ -16,74 +17,81 @@ class CustomNavigationDrawer extends StatelessWidget {
         color: white,
         child: ListView(
           children: [
-            buildDrawerHeader(),
+            buildDrawerHeader(context),
             Divider(
               color: Colors.grey,
             ),
             buildDrawerItem(
               icon: Icons.home,
-              text: "Home",
+              text: "الواجهة الرّئيسيّة",
               onTap: () => navigate(0),
               tileColor:
                   Get.currentRoute == Routes.HOME ? secondaryColor : null,
               textIconColor: Get.currentRoute == Routes.HOME
                   ? secondaryColor
-                  : Colors.black,
+                  : Colors.black,context: context
             ),
             buildDrawerItem(
               icon: Icons.wallet,
-              text: "My Wallet",
+              text: "المحفظة",
               onTap: () => navigate(1),
               tileColor:
                   Get.currentRoute == Routes.WALLET ? secondaryColor : null,
               textIconColor: Get.currentRoute == Routes.WALLET
                   ? secondaryColor
-                  : Colors.black,
+                  : Colors.black,context: context
             ),
             buildDrawerItem(
                 icon: Maki.fuel,
-                text: "My Orders",
+                text: "الطّلبات",
                 onTap: () => navigate(2),
                 tileColor:
                     Get.currentRoute == Routes.ORDERS ? secondaryColor : null,
                 textIconColor: Get.currentRoute == Routes.ORDERS
                     ? secondaryColor
-                    : Colors.black),
+                    : Colors.black,context: context),
             buildDrawerItem(
                 icon: Icons.person,
-                text: "My Profile",
+                text: "الملف الشّخصي",
                 onTap: () => navigate(3),
                 tileColor:
                     Get.currentRoute == Routes.PROFILE ? secondaryColor : null,
                 textIconColor: Get.currentRoute == Routes.PROFILE
                     ? secondaryColor
-                    : Colors.black),
+                    : Colors.black,context: context),
             buildDrawerItem(
                 icon: IcoFontIcons.searchProperty,
-                text: "My Properties",
+                text: "الممتلكات",
                 onTap: () => navigate(4),
                 tileColor: Get.currentRoute == Routes.PROPERTIES
                     ? secondaryColor
                     : null,
                 textIconColor: Get.currentRoute == Routes.PROPERTIES
                     ? secondaryColor
-                    : Colors.black),
+                    : Colors.black,context: context),
             buildDrawerItem(
                 icon: Icons.settings,
-                text: "Settings",
+                text: "الإعدادات",
                 onTap: () => navigate(5),
                 tileColor:
                     Get.currentRoute == Routes.SETTINGS ? secondaryColor : null,
                 textIconColor: Get.currentRoute == Routes.SETTINGS
                     ? secondaryColor
-                    : Colors.black),
+                    : Colors.black, context: context),
+            buildDrawerItem(
+                icon: Icons.logout,
+                text: "تسجيل خروج",
+                onTap: () => navigate(6),
+                tileColor: secondaryColor ,
+                textIconColor: secondaryColor
+                    , context: context),
           ],
         ),
       ),
     );
   }
 
-  Widget buildDrawerHeader() {
+  Widget buildDrawerHeader(BuildContext context) {
     return UserAccountsDrawerHeader(
       decoration: BoxDecoration(color: primaryColor),
       accountName: Text("username"),
@@ -102,12 +110,13 @@ class CustomNavigationDrawer extends StatelessWidget {
     required Color textIconColor,
     required Color? tileColor,
     required VoidCallback onTap,
+    required BuildContext context,
   }) {
     return ListTile(
       leading: Icon(icon, color: textIconColor),
       title: Text(
         text,
-        style: TextStyle(color: textIconColor),
+        style: Theme.of(context).textTheme.titleMedium,
       ),
       tileColor: tileColor,
       onTap: onTap,
@@ -130,6 +139,12 @@ class CustomNavigationDrawer extends StatelessWidget {
     }
     else if (index == 5) {
       Get.toNamed(Routes.SETTINGS);
+    }
+    else if (index == 6) {
+      UserStorage.delete('token');
+      UserStorage.delete('phone');
+      Get.offNamed(Routes.LOGIN);
+
     }
   }
 }

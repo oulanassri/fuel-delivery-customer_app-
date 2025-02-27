@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 
 class THelperFunctions {
+  static Future<dynamic> suggestionAdress(String address) async {
+    Response response = await Dio().get("https://photon.komoot.io/api/",
+        queryParameters: {"q": address, "limit": 7});
+    final json = response.data;
+    return json;
+  }
   static void showSnackBar(String message, BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

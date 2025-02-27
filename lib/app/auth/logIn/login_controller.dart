@@ -1,83 +1,43 @@
-import 'dart:developer';
-
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../native_service/get_storage.dart';
+import '../../../routes/app_routes.dart';
+import '../../../utils/constants/api_constants.dart';
+import '../../../utils/http/http_client.dart';
 
 class LoginController extends GetxController {
-  late UserStorage storage;
-  final mobileNumberController = TextEditingController();
+ // late UserStorage storage;
+  final phoneController = TextEditingController();
   final passwordController = TextEditingController();
-
 
   @override
   void onInit() {
-
-    storage = UserStorage();
+  //  storage = UserStorage();
     super.onInit();
   }
 
-
-
-/*
-  Future<bool> userLogin({
-    required String email,
-    required String password,
-    required String phoneNumber,
-  }) async {
-    print('User Login:');
-    print('Email: $email');
-    print('Password: $password');
-    print('Phone Number: $phoneNumber');
-
+  Future<void> login() async {
+    print("login");
     try {
-      dynamic response = await DioHelper.postData(url: 'api/auth/login', data: {
-        'email': email,
-        'password': password,
-        'phone_number': phoneNumber,
-      });
+      Map data = {
+        "password": passwordController.text,
+        "phone": phoneController.text,
+      };
+      print(data);
+      Map<String, dynamic> body = await THttpHelper.post(
+          endpoint: APIConstants.endPoints.login, data: data);
+      print(body["token"]);
+      //  print(json.decode(body["token"] ));
+      UserStorage.save("token", body["token"]);
+      UserStorage.save("phone", phoneController.text);
+      phoneController.clear();
+      passwordController.clear();
 
-      print('Response:');
-      print(response.data);
-
-      LoginResponseModel logInResponseModel =
-          LoginResponseModel.fromJson(response.data);
-      print("Status Code ");
-      print('${logInResponseModel.status}');
-print('access_token ');
-print('${logInResponseModel.accessToken}');
-      print("refresh_token");
-      print('${logInResponseModel.refreshToken}');
-
-storage.save('access_token', '${logInResponseModel.accessToken}');
-      storage.save('refresh_token','${logInResponseModel.refreshToken}');
-
-      print('Message: ${logInResponseModel.message}');
-      return true; // Indicate success
-    } catch (error) {
-      if (error is DioException) {
-        print('DioException occurred:');
-        print(error.message);
-
-        if (error.response != null) {
-          print('Response data:');
-          print(error.response?.data);
-          print('Status code:');
-          print(error.response?.statusCode);
-          statusCode = error.response?.statusCode!;
-        }
-      } else {
-        print('An unexpected error occurred:');
-        print(error);
-      }
-      return false; // Indicate failure
+      Get.offNamed(Routes.HOME);
+    } catch (e) {
+      print(e);
     }
   }
-
-
-*/
-
-
 }

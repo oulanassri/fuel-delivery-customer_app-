@@ -16,7 +16,8 @@ abstract class Routes{
   static const PROFILE=Paths.PROFILE;
   static const PROPERTIES=Paths.PROPERTIES;
   static const SETTINGS=Paths.SETTINGS;
-
+  static const CARFUELDEMAND=Paths.CARFUELDEMAND;
+  static const HOUSEFUELDEMAND=Paths.HOUSEFUELDEMAND;
 }
 
 abstract class Paths{
@@ -33,5 +34,6 @@ abstract class Paths{
   static const PROFILE='/profile_screen';
   static const PROPERTIES='/properties_screen';
   static const SETTINGS='/settings_screen';
-
+  static const CARFUELDEMAND='/car_fuel_demand_screen';
+  static const HOUSEFUELDEMAND='/house_fuel_demand_screen';
 }

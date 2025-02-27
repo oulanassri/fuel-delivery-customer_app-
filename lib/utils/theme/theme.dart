@@ -13,7 +13,7 @@ class TAppTheme {
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     primaryColor: primaryColor,
-    fontFamily: 'Poppins',
+    fontFamily: 'Tajawal',
     scaffoldBackgroundColor: Colors.white,
     brightness: Brightness.light,
     textTheme: TTextTheme.lightTextTheme,
@@ -25,7 +25,7 @@ class TAppTheme {
     outlinedButtonTheme: TOutlinedButtonTheme.lightOutlinedButtonTheme,
     inputDecorationTheme: TTextFormFieldTheme.lightInputDecorationTheme,
   );
-  static ThemeData darkTheme = ThemeData(
+  /*static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     primaryColor: primaryColor,
     fontFamily: 'Poppins',
@@ -39,7 +39,7 @@ class TAppTheme {
     bottomSheetTheme: TBottomSheetTheme.darkBottomSheetTheme,
     outlinedButtonTheme: TOutlinedButtonTheme.darkOutlinedButtonTheme,
     inputDecorationTheme: TTextFormFieldTheme.darkInputDecorationTheme,
-  );
+  );*/
 }
 /*scaffoldBackgroundColor: bgColor,
         textTheme: GoogleFonts.poppinsTextTheme(

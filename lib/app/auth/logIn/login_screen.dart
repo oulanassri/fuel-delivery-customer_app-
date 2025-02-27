@@ -18,47 +18,41 @@ class LogInScreen extends GetView<LoginController> {
     Get.put(LoginController());
 
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-            primaryColor,
-            Colors.grey,
-            primaryColor,
-          ]),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              height: 80,
-            ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  FadeInUp(
-                      duration: Duration(milliseconds: 1000),
-                      child: Text(
-                        "Login",
-                        style: TextStyle(color: Colors.white, fontSize: 40),
-                      )),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  FadeInUp(
-                      duration: Duration(milliseconds: 1300),
-                      child: Text(
-                        "Welcome Back",
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      )),
-                ],
+      body: SingleChildScrollView(
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(gradient: gradientColorBg),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(
+                height: 80,
               ),
-            ),
-            SizedBox(height: 20),
-            Expanded(
-              child: Container(
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    FadeInUp(
+                        duration: Duration(milliseconds: 1000),
+                        child: Text(
+                          "تسجيل دخول",
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        )),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    FadeInUp(
+                        duration: Duration(milliseconds: 1300),
+                        child: Text(
+                          "أهلا بعودتك",
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        )),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+              Container(
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -79,18 +73,18 @@ class LogInScreen extends GetView<LoginController> {
                                 borderRadius: BorderRadius.circular(10),
                                 boxShadow: [
                                   BoxShadow(
-                                      color: Color.fromRGBO(225, 95, 27, .3),
+                                      color: Color(0xFFA3A3A3),
                                       blurRadius: 20,
                                       offset: Offset(0, 10))
                                 ]),
                             child: Column(
                               children: <Widget>[
                                 CustomTextFormField(
-                                  hintText: "Phone number",
-                                  controller: controller.mobileNumberController,
+                                  hintText: "رقم الهاتف",
+                                  controller: controller.phoneController,
                                 ),
                                 CustomTextFormField(
-                                  hintText: "Password",
+                                  hintText: "كلمة السّر",
                                   controller: controller.passwordController,
                                 ),
                               ],
@@ -102,7 +96,7 @@ class LogInScreen extends GetView<LoginController> {
                       FadeInUp(
                           duration: Duration(milliseconds: 1500),
                           child: Text(
-                            "Forgot Password?",
+                            "هل نسيت كلمة السّر",
                             style: TextStyle(color: Colors.grey),
                           )),
                       SizedBox(
@@ -111,10 +105,13 @@ class LogInScreen extends GetView<LoginController> {
                       FadeInUp(
                         duration: Duration(milliseconds: 1600),
                         child: CustomMaterialButton(
-                          route: "",
-                          text: "Login",
+                          route: Routes.HOME,
+                          text: "تسجيل دخول",
                           buttonColor: secondaryColor,
                           textColor: white,
+                          function: () {
+                            controller.login();
+                          },
                         ),
                       ),
                       SizedBox(
@@ -124,17 +121,20 @@ class LogInScreen extends GetView<LoginController> {
                         duration: Duration(milliseconds: 1600),
                         child: CustomMaterialButton(
                           route: Routes.SIGNUP,
-                          text: "Sign Up",
+                          text: "إنشاء حساب",
                           buttonColor: white,
                           textColor: secondaryColor,
+                          function: () {
+                            Get.toNamed(Routes.SIGNUP);
+                          },
                         ),
                       ),
                     ],
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

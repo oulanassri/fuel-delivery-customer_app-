@@ -6,19 +6,17 @@ import '../../constants.dart';
 
 class CustomMaterialButton extends StatelessWidget {
   const CustomMaterialButton(
-      {Key? key, required this.route, required this.text, required this.buttonColor, required this.textColor})
+      {Key? key, required this.route, required this.text, required this.buttonColor, required this.textColor, required this.function})
       : super(key: key);
   final String route;
   final String text;
   final Color buttonColor;
   final Color textColor;
-
+final VoidCallback function;
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      onPressed: () {
-        Get.toNamed(route);
-      },
+      onPressed: function,
       height: 50,
       // margin: EdgeInsets.symmetric(horizontal: 50),
       color: buttonColor,
@@ -30,7 +28,7 @@ class CustomMaterialButton extends StatelessWidget {
       child: Center(
         child: Text(
           text,
-          style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
+          style: TextStyle(color: textColor, fontWeight: FontWeight.bold,fontFamily: 'Tajawal'),
         ),
       ),
     );

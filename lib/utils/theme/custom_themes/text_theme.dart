@@ -1,3 +1,4 @@
+import 'package:delivery_fuel_customer/app/constants.dart';
 import 'package:flutter/material.dart';
 
 class TTextTheme {
@@ -6,64 +7,76 @@ class TTextTheme {
   static TextTheme lightTextTheme = TextTheme(
     headlineLarge: const TextStyle().copyWith(
       fontSize: 32,
+      fontFamily: 'Tajawal',
       fontWeight: FontWeight.bold,
-      color: Colors.black,
+      color: primaryText,
     ),
     headlineMedium: const TextStyle().copyWith(
       fontSize: 24,
+      fontFamily: 'Tajawal',
       fontWeight: FontWeight.w600,
-      color: Colors.black,
+      color: primaryText,
     ),
     headlineSmall: const TextStyle().copyWith(
       fontSize: 18,
+      fontFamily: 'Tajawal',
       fontWeight: FontWeight.w600,
-      color: Colors.black,
+      color: secondaryText,
     ),
     ///////////////  title   ///////////////
     titleLarge: const TextStyle().copyWith(
-      fontSize: 16,
+      fontSize: 18,
+      fontFamily: 'Tajawal',
       fontWeight: FontWeight.w600,
-      color: Colors.black,
+      color: primaryText,
     ),
     titleMedium: const TextStyle().copyWith(
-      fontSize: 16,
+      fontSize: 18,
+      fontFamily: 'Tajawal',
       fontWeight: FontWeight.w500,
-      color: Colors.black,
+      color: primaryText,
     ),
     titleSmall: const TextStyle().copyWith(
-      fontSize: 16,
+      fontSize: 18,
+      fontFamily: 'Tajawal',
       fontWeight: FontWeight.w400,
-      color: Colors.black,
+      color: primaryText,
     ),
+
     ///////////////  body   ///////////////
     bodyLarge: const TextStyle().copyWith(
-      fontSize: 14,
+      fontSize: 16,
+      fontFamily: 'Tajawal',
       fontWeight: FontWeight.w500,
-      color: Colors.black,
+      color: primaryText,
     ),
     bodyMedium: const TextStyle().copyWith(
-      fontSize: 14,
-      fontWeight: FontWeight.normal,
-      color: Colors.black,
+      fontSize: 16,
+      fontFamily: 'Tajawal',
+      fontWeight: FontWeight.bold,
+      color: secondaryText,
     ),
     bodySmall: const TextStyle().copyWith(
-      fontSize: 14,
+      fontSize: 16,
+      fontFamily: 'Tajawal',
       fontWeight: FontWeight.w500,
-      color: Colors.black.withOpacity(0.5),
+      color: primaryText.withOpacity(0.5),
     ),
     ///////////////  label   ///////////////
     labelLarge: const TextStyle().copyWith(
-      fontSize: 12,
+      fontSize: 14,
+      fontFamily: 'Tajawal',
       fontWeight: FontWeight.normal,
-      color: Colors.black,
+      color: primaryText,
     ),
     labelSmall: const TextStyle().copyWith(
-      fontSize: 12,
+      fontSize: 14,
+      fontFamily: 'Tajawal',
       fontWeight: FontWeight.normal,
-      color: Colors.black.withOpacity(0.5),
+      color: primaryText.withOpacity(0.5),
     ),
   );
-  static TextTheme darkTextTheme = TextTheme(
+/* static TextTheme darkTextTheme = TextTheme(
     headlineLarge: const TextStyle().copyWith(
       fontSize: 32,
       fontWeight: FontWeight.bold,
@@ -122,5 +135,5 @@ class TTextTheme {
       fontWeight: FontWeight.normal,
       color: Colors.white.withOpacity(0.5),
     ),
-  );
+  );*/
 }

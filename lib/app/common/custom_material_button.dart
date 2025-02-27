@@ -1,3 +1,4 @@
+import 'package:delivery_fuel_customer/app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -6,12 +7,11 @@ import 'package:get/get_core/src/get_main.dart';
 
 class CustomMaterialButton1 extends StatelessWidget {
   const CustomMaterialButton1(
-      {Key? key, required this.route, required this.text, required this.buttonColor, required this.textColor})
+      {Key? key, required this.route, required this.text, })
       : super(key: key);
   final String route;
   final String text;
-  final Color buttonColor;
-  final Color textColor;
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class CustomMaterialButton1 extends StatelessWidget {
       },
       height: 50,
       // margin: EdgeInsets.symmetric(horizontal: 50),
-      color: buttonColor,
+      color: primaryButton,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(50),
       ),
@@ -30,7 +30,7 @@ class CustomMaterialButton1 extends StatelessWidget {
       child: Center(
         child: Text(
           text,
-          style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
+          style:Theme.of(context).textTheme.bodyMedium,
         ),
       ),
     );

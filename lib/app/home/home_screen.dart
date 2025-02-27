@@ -1,12 +1,19 @@
+import 'package:delivery_fuel_customer/app/home/components/home.dart';
 import 'package:delivery_fuel_customer/app/home/home_controller.dart';
+import 'package:delivery_fuel_customer/app/location/location_picker_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/maki_icons.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../../routes/app_routes.dart';
+import '../common/custom_app_bar.dart';
 import '../common/custom_material_button.dart';
 import '../common/navigation_drawer.dart';
 import '../constants.dart';
+import '../orders/components/previous_order.dart';
+import 'components/active_order.dart';
 
 class HomeScreen extends GetView<HomeController> {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,41 +23,24 @@ class HomeScreen extends GetView<HomeController> {
     Get.put(HomeController());
 
     return Scaffold(
-        drawer: CustomNavigationDrawer(),
-        appBar: AppBar(
-          title: Text("Home"),
-          centerTitle: true,
+      drawer: CustomNavigationDrawer(),
+      appBar: CustomAppBar(
+        title: "الواجهة الرّئيسيّة",
+      ),
+      body: Obx(
+        () => Container(
+          height: double.infinity,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            gradient: gradientColorBg,
+          ),
+          child: controller.orderStatus.value == "home"
+              ? ActiveOrder(
+                  controller: controller,
+                )
+              : Home(),
         ),
-        body: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              gradient: gradientColorBg,
-            ),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: defaultPadding * 2,
-                ),
-                Center(
-                  child: Icon(
-                    Maki.fuel,
-                    color: white,
-                    size: 100,
-                  ),
-                ),
-                SizedBox(
-                  height: defaultPadding * 2,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 100),
-                  child: CustomMaterialButton1(
-                    route: '',
-                    text: 'Fill it up',
-                    buttonColor: secondaryColor,
-                    textColor: white,
-                  ),
-                ),
-              ],
-            )));
+      ),
+    );
   }
 }

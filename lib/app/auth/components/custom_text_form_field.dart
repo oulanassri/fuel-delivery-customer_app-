@@ -20,6 +20,8 @@ class CustomTextFormField extends StatelessWidget {
       child: TextField(
         controller: controller,
         decoration: InputDecoration(
+          label: Text("أدخل $hintText"),
+            labelStyle: Theme.of(context).textTheme.titleMedium,
             hintText: hintText,
             hintStyle: TextStyle(color: Colors.grey),
             border: InputBorder.none),

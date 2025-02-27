@@ -1,10 +1,13 @@
 import 'package:delivery_fuel_customer/app/home/home_screen.dart';
+import 'package:delivery_fuel_customer/getx_bindings/fuel_demand_binding.dart';
 import 'package:delivery_fuel_customer/getx_bindings/home_binding.dart';
 import 'package:delivery_fuel_customer/getx_bindings/profile_binding.dart';
 import 'package:get/get.dart';
 import '../app/auth/LogIn/login_screen.dart';
 import '../app/auth/SignUp/sign_up_screen.dart';
 import '../app/auth/Splash/splash_screen.dart';
+import '../app/fuel demand/car_fuel_demand_screen.dart';
+import '../app/fuel demand/house_fuel_demand_screen.dart';
 import '../app/orders/orders_screen.dart';
 import '../app/profile/profile_screen.dart';
 import '../app/properties/properties_screen.dart';
@@ -48,11 +51,7 @@ class AppPages {
         page: () => const HomeScreen(),
         binding: HomeBinding()),
 
-    //Home
-    GetPage(
-        name: Paths.HOME,
-        page: () => const HomeScreen(),
-        binding: HomeBinding()),
+
 
     //Wallet
     GetPage(
@@ -80,6 +79,16 @@ class AppPages {
         name: Paths.SETTINGS,
         page: () => const SettingsScreen(),
         binding: SettingsBinding()),
+    //Car Fuel Demand
+    GetPage(
+        name: Paths.CARFUELDEMAND,
+        page: () => const CarFuelDemandScreen(),
+        binding: FuelDemandBinding()),
+    //House Fuel Demand
+    GetPage(
+        name: Paths.HOUSEFUELDEMAND,
+        page: () => const HouseFuelDemandScreen(),
+        binding: FuelDemandBinding()),
 
   ];
 }
