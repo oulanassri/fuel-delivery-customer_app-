@@ -1,4 +1,5 @@
 import 'package:delivery_fuel_customer/app/home/home_screen.dart';
+import 'package:delivery_fuel_customer/app/properties/adding_house_screen.dart';
 import 'package:delivery_fuel_customer/getx_bindings/fuel_demand_binding.dart';
 import 'package:delivery_fuel_customer/getx_bindings/home_binding.dart';
 import 'package:delivery_fuel_customer/getx_bindings/profile_binding.dart';
@@ -10,9 +11,11 @@ import '../app/fuel demand/car_fuel_demand_screen.dart';
 import '../app/fuel demand/house_fuel_demand_screen.dart';
 import '../app/orders/orders_screen.dart';
 import '../app/profile/profile_screen.dart';
+import '../app/properties/adding_house_controller.dart';
 import '../app/properties/properties_screen.dart';
 import '../app/settings/settings_screen.dart';
 import '../app/wallet/wallet_screen.dart';
+import '../getx_bindings/adding_house_binding.dart';
 import '../getx_bindings/login_binding.dart';
 import '../getx_bindings/orders_binding.dart';
 import '../getx_bindings/properties_binding.dart';
@@ -72,8 +75,13 @@ class AppPages {
     //Properties
     GetPage(
         name: Paths.PROPERTIES,
-        page: () => const PropertiesScreen(),
+        page: () =>  PropertiesScreen(),
         binding: PropertiesBinding()),
+    //AddingHouseScreen
+    GetPage(
+        name: Paths.ADDINGHOUSESCREEN,
+        page: () =>  AddingHouseScreen(),
+        binding: AddingHouseBinding()),
     //Settings
     GetPage(
         name: Paths.SETTINGS,

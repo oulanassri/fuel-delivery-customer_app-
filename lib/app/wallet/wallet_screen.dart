@@ -29,25 +29,29 @@ class WalletScreen extends GetView<WalletController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             spacing: defaultPadding,
-            children: [
-              TotalAmountWidget(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 10,
-                children: [
-                  Text(
-                    "الرمز الخاص:",
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  Text(
-                    "2342340",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall
-                        ?.copyWith(color: primaryColor),
-                  ),
-                ],
-              ),
+            children:[
+             TotalAmountWidget(amount: controller.wallet,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 10,
+              children: [
+                Text(
+                  "الرمز الخاص:",
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .titleLarge,
+                ),
+                Text(
+                  "2342340",
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .headlineSmall
+                      ?.copyWith(color: primaryColor),
+                ),
+              ],
+            ),
             ],
           )),
     );

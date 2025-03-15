@@ -1,10 +1,14 @@
+import 'dart:ffi';
+
 import 'package:delivery_fuel_customer/app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
-class CustomHouseSleekSlider extends StatelessWidget {
-  const CustomHouseSleekSlider({Key? key}) : super(key: key);
+import '../../fuel_demand_controller.dart';
 
+class CustomHouseSleekSlider extends StatelessWidget {
+   CustomHouseSleekSlider({Key? key,required this.controller}) : super(key: key);
+  FuelDemandController controller;
   @override
   Widget build(BuildContext context) {
     return RotatedBox(
@@ -19,6 +23,7 @@ class CustomHouseSleekSlider extends StatelessWidget {
           ),
           onChange: (double value) {
             print(value);
+            controller.fuelQuantity.value=value.toInt();
           },
           innerWidget: (value) {
             return Center(

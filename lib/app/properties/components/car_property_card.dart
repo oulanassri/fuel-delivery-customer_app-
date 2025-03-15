@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../models/car.dart';
+import '../../../models/properties.dart';
 
 class CarPropertyCard extends StatelessWidget {
   const CarPropertyCard({Key? key, required this.car}) : super(key: key);
-  final Car car;
+  final CustomerCars car;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: defaultPadding),
+      margin: EdgeInsets.symmetric(
+          horizontal: defaultPadding, vertical: defaultPadding / 2),
       elevation: 5.0,
       color: Colors.white12,
       child: Container(
@@ -35,7 +37,6 @@ class CarPropertyCard extends StatelessWidget {
             ),
             Container(
               padding: EdgeInsets.all(defaultPadding),
-
               child: Column(
                 spacing: 10,
                 // crossAxisAlignment: CrossAxisAlignment.end,
@@ -45,7 +46,7 @@ class CarPropertyCard extends StatelessWidget {
                     alignment: Alignment.topLeft,
                     width: 100,
                     child: Text(
-                      "${car.type} ",
+                      "${car.plateNumber} ",
                       style: TextStyle(
                         fontSize: 26,
                         fontFamily: 'Tajawal',
@@ -57,7 +58,7 @@ class CarPropertyCard extends StatelessWidget {
                   Container(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      " ${car.color} ${car.yearOfManufacture}",
+                      " ${car.brand} ${car.model}",
                       style: TextStyle(
                         fontSize: 26,
                         fontFamily: 'Tajawal',
@@ -69,7 +70,7 @@ class CarPropertyCard extends StatelessWidget {
                   Container(
                     alignment: Alignment.bottomLeft,
                     child: Text(
-                      "${car.plateNumber} ",
+                      "${car.color} ",
                       style: TextStyle(
                         fontSize: 26,
                         fontFamily: 'Tajawal',

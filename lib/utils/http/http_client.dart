@@ -24,7 +24,7 @@ class THttpHelper {
     print(response.body);
     return _handleResponse(response  );
   }*/
-  static Future<Map<String, dynamic>> postRegister() async {
+ /* static Future<Map<String, dynamic>> postRegister() async {
     print("postRegister");
     dynamic response =
         (await http.post(Uri.parse("http://192.168.163.17:5000/api/User/login"),
@@ -41,7 +41,7 @@ class THttpHelper {
     print(token);
 
     return _handleResponse(response);
-  }
+  }*/
 
   //Helper method to make a GET request
   static Future<Map<String, dynamic>> get(String endpoint) async {
@@ -74,7 +74,17 @@ class THttpHelper {
         body: json.encode(data));
     return _handleResponse(response);
   }
-
+  //Helper method to make a PATCH request
+  static Future<Map<String, dynamic>> patch(
+      {required String endpoint, required Map<String, dynamic> data}) async {
+    final response = await http.patch(Uri.parse('$_baseUrl$endpoint?plateNum=$data'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token'
+        },
+        /*body: json.encode(data)*/);
+    return _handleResponse(response);
+  }
   //Helper method to make a DELETE request
   static Future<Map<String, dynamic>> delete(String endpoint) async {
     final response = await http.delete(Uri.parse('$_baseUrl$endpoint'),
@@ -87,9 +97,23 @@ class THttpHelper {
 
   //Handle the HTTP response
   static Map<String, dynamic> _handleResponse(http.Response response) {
+    print("response.statusCode ${response.statusCode}");
     if (response.statusCode == 200 || response.statusCode == 201) {
       return json.decode(response.body);
     } else {
+      throw Exception('Failed to load date: ${response.statusCode}');
+    }
+  }
+  //Helper method to make a GET String request
+  static Future<String> getString(String endpoint) async {
+    final response = await http.get(Uri.parse('$_baseUrl$endpoint'), headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    });
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return json.decode(response.body).toString();
+    }
+    else {
       throw Exception('Failed to load date: ${response.statusCode}');
     }
   }

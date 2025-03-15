@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
+import '../../../models/order.dart';
 import '../../common/common_material_button.dart';
 import '../../common/invoice_table.dart';
 import '../../constants.dart';
 
 class PreviousOrder extends StatelessWidget {
-  PreviousOrder({Key? key}) : super(key: key);
+  PreviousOrder({Key? key, required this.ordersModel}) : super(key: key);
   RxBool open = false.obs;
+  OrdersModel ordersModel;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,7 @@ class PreviousOrder extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           Text(
-                            "   12",
+                            ordersModel.orderNumber ?? "",
                             style: Theme.of(context).textTheme.labelSmall,
                           ),
                         ],
@@ -61,17 +63,17 @@ class PreviousOrder extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           Text(
-                            "   12:00PM",
+                            ordersModel.date ?? "",
                             style: Theme.of(context).textTheme.labelSmall,
                           ),
                         ],
                       ),
                       open.value == true
                           ? Text(
-                        "الموقع : مدينة + الحيّ + تفاصيل عن الموقع",
-                        style: Theme.of(context).textTheme.labelSmall,
-                        maxLines: 3,
-                      )
+                              "${ordersModel.neighborhoodName}  ${ordersModel.locationDescription}",
+                              style: Theme.of(context).textTheme.labelSmall,
+                              maxLines: 3,
+                            )
                           : Container(),
                       open.value == true
                           ? Row(
@@ -82,7 +84,7 @@ class PreviousOrder extends StatelessWidget {
                                       Theme.of(context).textTheme.titleMedium,
                                 ),
                                 Text(
-                                  "مازوت",
+                                  ordersModel.fuelTypeName ?? "",
                                   style: Theme.of(context).textTheme.labelSmall,
                                 ),
                               ],
@@ -97,7 +99,7 @@ class PreviousOrder extends StatelessWidget {
                                       Theme.of(context).textTheme.titleMedium,
                                 ),
                                 Text(
-                                  "100",
+                                  ordersModel.orderedQuantity.toString() ?? "",
                                   style: Theme.of(context).textTheme.labelSmall,
                                 ),
                               ],

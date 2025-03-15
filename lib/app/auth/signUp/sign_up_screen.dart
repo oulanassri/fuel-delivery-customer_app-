@@ -10,7 +10,6 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 
 import '../../../routes/app_routes.dart';
-import '../../../utils/api_services/api_services.dart';
 import '../../../utils/http/http_client.dart';
 import '../../constants.dart';
 import '../components/custom_material_button.dart';
@@ -21,6 +20,9 @@ class SignUpScreen extends GetView<SignUpController> {
 
   @override
   Widget build(BuildContext context) {
+    RxBool obscurePassword = true.obs;
+    RxBool obscureHiddenPassword = true.obs;
+
     Get.put(SignUpController());
     return Scaffold(
       body: Container(
@@ -42,7 +44,10 @@ class SignUpScreen extends GetView<SignUpController> {
                         duration: Duration(milliseconds: 1000),
                         child: Text(
                           "إنشاء حساب",
-                          style: Theme.of(context).textTheme.headlineMedium,
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .headlineMedium,
                         )),
                     SizedBox(
                       height: 10,
@@ -51,7 +56,10 @@ class SignUpScreen extends GetView<SignUpController> {
                         duration: Duration(milliseconds: 1300),
                         child: Text(
                           "أهلا بك",
-                          style: Theme.of(context).textTheme.headlineSmall,
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .headlineSmall,
                         )),
                   ],
                 ),
@@ -96,32 +104,90 @@ class SignUpScreen extends GetView<SignUpController> {
                                   hintText: "رقم الهاتف",
                                   controller: controller.mobileNumberController,
                                 ),
-                                CustomTextFormField(
-                                  hintText: "كلمة السّر",
-                                  controller: controller.passwordController,
-                                ),
-                                CustomTextFormField(
-                                  hintText: "كلمة السّر للتحقّق",
-                                  controller:
-                                      controller.confirmPasswordController,
-                                ),
+
+                                Obx(() =>
+                                    Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom: BorderSide(
+                                              color: Colors.grey.shade200),
+                                        ),
+                                      ),
+                                      child: TextField(
+                                        obscureText: obscurePassword.value,
+                                        controller:
+                                        controller.passwordController,
+                                        decoration: InputDecoration(
+                                            suffix: InkWell(
+                                              child: Icon(
+                                                obscurePassword.value
+                                                    ? Icons.visibility_off
+                                                    : Icons.visibility,
+                                                color: primaryColor,
+                                                size: 20,
+                                              ),
+                                              onTap: () {
+                                                obscurePassword.value =
+                                                !(obscurePassword.value);
+                                              },
+                                            ),
+                                            label: Text("أدخل كلمة السّر"),
+                                            labelStyle: Theme
+                                                .of(context)
+                                                .textTheme
+                                                .titleMedium,
+                                            hintText: "كلمة السّر",
+                                            hintStyle:
+                                            TextStyle(color: Colors.grey),
+                                            border: InputBorder.none),
+                                      ),
+                                    )),
+
+                                Obx(() =>
+                                    Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom: BorderSide(
+                                              color: Colors.grey.shade200),
+                                        ),
+                                      ),
+                                      child: TextField(
+                                        obscureText: obscureHiddenPassword
+                                            .value,
+                                        controller:
+                                        controller.confirmPasswordController,
+                                        decoration: InputDecoration(
+                                            suffix: InkWell(
+                                              child: Icon(
+                                                obscureHiddenPassword.value
+                                                    ? Icons.visibility_off
+                                                    : Icons.visibility,
+                                                color: primaryColor,
+                                                size: 20,
+                                              ),
+                                              onTap: () {
+                                                obscureHiddenPassword.value =
+                                                !(obscureHiddenPassword.value);
+                                              },
+                                            ),
+                                            label: Text(
+                                                "أدخل كلمة السّر للتحقّق"),
+                                            labelStyle: Theme
+                                                .of(context)
+                                                .textTheme
+                                                .titleMedium,
+                                            hintText: "كلمة السّر للتحقّق",
+                                            hintStyle:
+                                            TextStyle(color: Colors.grey),
+                                            border: InputBorder.none),
+                                      ),
+                                    )),
                               ],
                             ),
                           )),
-                      /* SizedBox(
-                        height: 40,
-                      ),
-                      GestureDetector(
-                        child: Text(
-                          "إنشاء حساب",
-                          style: TextStyle(color: Colors.purple),
-                        ),
-                        onTap: () async{
-                          //  DioHelper d=DioHelper();
-                          //  d.init();
-                    //    await  controller.onRegister();
-                        },
-                      ),*/
+
                       SizedBox(
                         height: 40,
                       ),
@@ -133,7 +199,7 @@ class SignUpScreen extends GetView<SignUpController> {
                           buttonColor: secondaryColor,
                           textColor: white,
                           function: () {
-                            print("fun");
+//controller.getCities();
                             controller.register();
                           },
                         ),

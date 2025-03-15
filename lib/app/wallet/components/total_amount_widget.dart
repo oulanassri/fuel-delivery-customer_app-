@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../constants.dart';
 
 class TotalAmountWidget extends StatelessWidget {
-  const TotalAmountWidget({Key? key}) : super(key: key);
-
+  const TotalAmountWidget({Key? key, required this.amount}) : super(key: key);
+final RxString amount;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,7 +34,7 @@ class TotalAmountWidget extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 Text(
-                  "500",
+                  amount.value,
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium

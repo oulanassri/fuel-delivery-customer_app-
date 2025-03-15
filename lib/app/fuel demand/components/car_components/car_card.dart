@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../models/car.dart';
+import '../../../../models/properties.dart';
 
 class CarCard extends StatelessWidget {
   const CarCard({Key? key, required this.car, required this.chosen})
       : super(key: key);
-  final Car car;
+  final CustomerCars car;
   final bool chosen;
 
   @override
@@ -18,7 +19,7 @@ class CarCard extends StatelessWidget {
       color: chosen ? secondaryButton : Colors.white12,
       child: Container(
         margin: EdgeInsets.only(right: 10),
-        width: MediaQuery.of(context).size.width / 2,
+        width: MediaQuery.of(context).size.width / 1.5,
         padding: EdgeInsets.only(
           top: 15,
         ),
@@ -39,18 +40,18 @@ class CarCard extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     padding: EdgeInsets.only(left: 12),
                     child: Text(
-                        "${car.type} ",
+                        "${car.plateNumber} ",
                         style: Theme.of(context).textTheme.headlineSmall)),
                 Container(
                     alignment: Alignment.centerLeft,
                     padding: EdgeInsets.only(left: 12),
                     child: Text(
-                        " ${car.color} ${car.yearOfManufacture}",
+                        " ${car.brand} ${car.model}",
                         style: Theme.of(context).textTheme.headlineSmall)),
                 Container(
                     alignment: Alignment.bottomLeft,
                     padding: EdgeInsets.only(left: 12),
-                    child: Text("${car.plateNumber} ",
+                    child: Text("${car.color} ",
                         style: Theme.of(context).textTheme.headlineSmall)),
               ],
             ),

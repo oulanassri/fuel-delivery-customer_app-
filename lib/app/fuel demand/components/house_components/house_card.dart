@@ -1,10 +1,11 @@
 import 'package:delivery_fuel_customer/models/house.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../models/properties.dart';
 import '../../../constants.dart';
 class HouseCard extends StatelessWidget {
   const HouseCard({Key? key, required this.house, required this.chosen}) : super(key: key);
-  final House house;
+  final CustomerApartments house;
   final bool chosen;
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class HouseCard extends StatelessWidget {
                 alignment: AlignmentDirectional.center,
                 padding: EdgeInsets.only(left: 12),
                 child: Text(
-                    "${house.location}",
+                    "${house.cityName}  ${house.neighborhoodName}",
                     style: Theme.of(context).textTheme.titleLarge
                 )),
             SizedBox(

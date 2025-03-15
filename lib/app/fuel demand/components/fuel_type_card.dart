@@ -1,11 +1,12 @@
 import 'package:delivery_fuel_customer/app/constants.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/fuel_details.dart';
 import '../../../models/fuel_type.dart';
 
 class FuelTypeCard extends StatelessWidget {
   const FuelTypeCard({Key? key, required this.fuelType, required this.chosen}) : super(key: key);
-  final FuelType fuelType;
+  final FuelDetailsModel fuelType;
 final bool chosen;
   @override
   Widget build(BuildContext context) {
@@ -24,11 +25,11 @@ final bool chosen;
         spacing: defaultPadding / 2,
         children: [
           Text(
-            fuelType.type,
+            fuelType.fuelTypeName??"",
             style: Theme.of(context).textTheme.titleSmall,
           ),
           Text(
-            fuelType.subType,
+            fuelType.price.toString(),
             style: Theme.of(context).textTheme.titleSmall,
           )
         ],

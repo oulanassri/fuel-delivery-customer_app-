@@ -3,6 +3,7 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../../native_service/get_storage.dart';
 
 class HomeController extends GetxController {
@@ -11,16 +12,17 @@ class HomeController extends GetxController {
   var locationMessage = "";
 
   Position? currentPosition;
-  String?currentAddress;
+  String? currentAddress;
 
   @override
   void onInit() {
     storage = UserStorage();
     super.onInit();
   }
+
   RxString orderStatus = "InProgress".obs; // InProgress //home
 
- /* void _getPlace() async {
+  /* void _getPlace() async {
     List<Placemark> newPlace = await Geolocator().placemarkFromCoordinates(_position.latitude, _position.longitude);
 
     // this is all you need
@@ -72,10 +74,47 @@ class HomeController extends GetxController {
       print(e);
     }
   }*/
+
+  void getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      print('Location permissions are disabled');
+      return;
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.deniedForever) {
+      print(
+          'Location permissions are permanetly denied,we cannot request permissions.');
+      return;
+    }
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      /*   if (permission != LocationPermission.whileInUse && permission!=) {
+        print('Location permissions are denied');
+        return;
+      }*/
+    }
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    currentPosition = position;
+    print("latitude");
+    print(currentPosition?.latitude);
+    print("longitude");
+    print(currentPosition?.longitude);
+
+  }
+
+  Future<void> openMap(String lat, String long) async {
+    print("https://www.google.com/maps/search/?api=1&query=$lat,$long");
+    String googleUrl =
+        "https://www.google.com/maps/search/?api=1&query=$lat,$long";
+    await canLaunchUrlString(googleUrl)
+        ? await launchUrlString(googleUrl)
+        : throw 'Could not launch $googleUrl';
+  }
 /*
-void getCurrentLocation()async{
-    var position=await Geolocator().g
-}
   void determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;

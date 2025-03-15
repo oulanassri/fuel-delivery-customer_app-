@@ -27,21 +27,39 @@ class OrdersScreen extends GetView<OrdersController> {
         decoration: BoxDecoration(
           gradient: gradientColorBg,
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            spacing: defaultPadding,
-            children: [
-              SizedBox(
-                height: defaultPadding * 2,
-              ),
-              PreviousOrder(),
-              PreviousOrder(),
-              SizedBox(
-                height: defaultPadding,
-              ),
-            ],
-          ),
-        ),
+        child: Obx(() => controller.isLoading.value
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : SingleChildScrollView(
+                child: Column(
+                  spacing: defaultPadding,
+                  children: [
+                    SizedBox(
+                      height: defaultPadding * 2,
+                    ),
+               //     PreviousOrder(),
+                //    PreviousOrder(),
+                    ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: controller.orders.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                            onLongPress: () {
+
+                            },
+                            child: PreviousOrder(
+                              ordersModel: controller.orders[index],
+                            ),
+                          );
+                        }),
+                    SizedBox(
+                      height: defaultPadding,
+                    ),
+                  ],
+                ),
+              )),
       ),
     );
   }

@@ -1,21 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 
+import '../../app/constants.dart';
+
 class THelperFunctions {
-  static Future<dynamic> suggestionAdress(String address) async {
+/*  static Future<dynamic> suggestionAdress(String address) async {
     Response response = await Dio().get("https://photon.komoot.io/api/",
         queryParameters: {"q": address, "limit": 7});
     final json = response.data;
     return json;
-  }
-  static void showSnackBar(String message, BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-          content: Text(
-        message,
-      )),
-    );
+  }*/
+  static void showSnackBar({required String message, required String title}) {
+    Get.snackbar(title, message,
+        snackPosition: SnackPosition.BOTTOM,
+        titleText: Text(
+          title,
+          style: TextStyle().copyWith(
+            fontSize: 18,
+            fontFamily: 'Tajawal',
+            fontWeight: FontWeight.w600,
+            color: white,
+          ),
+        ),
+        messageText: Text(
+          message,
+          style: TextStyle().copyWith(
+            fontSize: 18,
+            fontFamily: 'Tajawal',
+            fontWeight: FontWeight.w600,
+            color: white,
+          ),
+        ),
+        backgroundColor: primaryColor);
   }
 
   static void showAlert(String title, String message, BuildContext context) {
@@ -70,14 +89,14 @@ class THelperFunctions {
     return DateFormat(format).format(date);
   }
 
-
-
   static List<Widget> wrapWidgets(List<Widget> widgets, int rowSize) {
     final wrappedList = <Widget>[];
     for (var i = 0; i < widgets.length; i += rowSize) {
       final rowChildren = widgets.sublist(
           i, i + rowSize > widgets.length ? widgets.length : i + rowSize);
-    wrappedList.add(Row(children: rowChildren,));
+      wrappedList.add(Row(
+        children: rowChildren,
+      ));
     }
     return wrappedList;
   }

@@ -7,7 +7,8 @@ import '../app/properties/properties_controller.dart';
 class PropertiesBinding extends Bindings{
   @override
   void dependencies() {
-    Get.put(PropertiesController());
+    Get.put(() => PropertiesController());
+
   }
 
 }

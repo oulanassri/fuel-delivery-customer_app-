@@ -9,6 +9,7 @@ import '../../../utils/http/http_client.dart';
 
 class LoginController extends GetxController {
  // late UserStorage storage;
+  var isPasswordHidden=true.obs;
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
 

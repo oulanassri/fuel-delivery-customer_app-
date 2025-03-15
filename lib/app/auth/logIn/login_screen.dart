@@ -16,7 +16,7 @@ class LogInScreen extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     Get.put(LoginController());
-
+    RxBool obscureText = true.obs;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -83,10 +83,44 @@ class LogInScreen extends GetView<LoginController> {
                                   hintText: "رقم الهاتف",
                                   controller: controller.phoneController,
                                 ),
-                                CustomTextFormField(
-                                  hintText: "كلمة السّر",
-                                  controller: controller.passwordController,
-                                ),
+
+                                Obx(() => Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom: BorderSide(
+                                              color: Colors.grey.shade200),
+                                        ),
+                                      ),
+                                      child: TextField(
+                                        obscureText: obscureText.value,
+                                        controller:
+                                            controller.passwordController,
+                                        decoration: InputDecoration(
+                                            suffix: InkWell(
+                                              child: Icon(
+                                                obscureText.value
+                                                    ? Icons.visibility_off
+                                                    : Icons.visibility,
+                                                color: primaryColor,
+                                                size: 20,
+                                              ),
+                                              onTap: () {
+                                                obscureText.value =
+                                                    !(obscureText.value);
+                                                print(obscureText.value);
+                                              },
+                                            ),
+                                            label: Text("أدخل كلمة السّر"),
+                                            labelStyle: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium,
+                                            hintText: "كلمة السّر",
+                                            hintStyle:
+                                                TextStyle(color: Colors.grey),
+                                            border: InputBorder.none),
+                                      ),
+                                    )),
                               ],
                             ),
                           )),

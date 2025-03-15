@@ -1,17 +1,19 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
 
 import '../../../native_service/get_storage.dart';
 import '../../../routes/app_routes.dart';
-import '../../../utils/api_services/api_services.dart';
 import '../../../utils/constants/api_constants.dart';
 import '../../../utils/http/http_client.dart';
 
 class SignUpController extends GetxController {
+  static final String _baseUrl = APIConstants.baseUrl;
   final getStorage = GetStorage();
   late UserStorage storage;
   int? statusCode = 0;
@@ -55,6 +57,42 @@ class SignUpController extends GetxController {
     super.onInit();
   }
 
+  Future<void> getCities() async {
+    // isUploading(true);
+    print("getCities");
+    try {
+      /*  final response = await Dio().get(
+        '$_baseUrl${APIConstants.endPoints.getCities}',
+
+          );*/
+
+      /*   final response = await http.get(
+          Uri.parse('$_baseUrl${APIConstants.endPoints.getCities}'),
+          headers: {
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "GET",
+          });*/
+
+      final response = await http.get(
+          Uri.parse('$_baseUrl${APIConstants.endPoints.getCities}'),
+          headers: {
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET",
+          });
+      print(response.body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+      } else {
+        print(response.statusCode);
+        throw Exception('Failed to load date: ${response.statusCode}');
+      }
+    } catch (e) {
+      print(e);
+    } finally {}
+  }
+
   Future<void> register() async {
     print("register");
     try {
@@ -65,15 +103,29 @@ class SignUpController extends GetxController {
         "email": emailController.text,
       };
       print(data);
-      Map<String, dynamic> body = await THttpHelper.post(
-          endpoint: APIConstants.endPoints.register, data: data);
-      print(body);
+      Map<String, dynamic> body;
+      final response = await http.post(
+          Uri.parse('$_baseUrl${APIConstants.endPoints.register}'),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: json.encode(data));
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        body = json.decode(response.body);
+        print(body);
+        UserStorage.save("name",userNameController.text);
+        UserStorage.save("phone",mobileNumberController.text);
+        login();
+      //  Get.offNamed(Routes.HOME);
+      } else {
+        throw Exception('Failed to load date: ${response.statusCode}');
+      }
       //  storage.save("token", value);
       userNameController.clear();
       passwordController.clear();
       mobileNumberController.clear();
       emailController.clear();
-      Get.offNamed(Routes.HOME);
     } catch (e) {
       print(e);
     }
@@ -88,5 +140,27 @@ class SignUpController extends GetxController {
     confirmPasswordController.dispose();
 
     super.onClose();
+  }
+
+  Future<void> login() async {
+    print("login");
+    try {
+      Map data = {
+        "password": passwordController.text,
+        "phone": mobileNumberController.text,
+      };
+      print(data);
+      Map<String, dynamic> body = await THttpHelper.post(
+          endpoint: APIConstants.endPoints.login, data: data);
+      print(body["token"]);
+      //  print(json.decode(body["token"] ));
+      UserStorage.save("token", body["token"]);
+      mobileNumberController.clear();
+      passwordController.clear();
+
+      Get.offNamed(Routes.HOME);
+    } catch (e) {
+      print(e);
+    }
   }
 }

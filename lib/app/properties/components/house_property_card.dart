@@ -1,21 +1,22 @@
 import 'package:delivery_fuel_customer/models/house.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/properties.dart';
 import '../../constants.dart';
 
 class HousePropertyCard extends StatelessWidget {
-  const HousePropertyCard({Key? key, required this.house}) : super(key: key);
-  final House house;
+  const HousePropertyCard({Key? key, required this.apartments}) : super(key: key);
+  final CustomerApartments apartments;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: defaultPadding),
+      margin: EdgeInsets.symmetric(horizontal: defaultPadding,vertical: defaultPadding / 2),
       elevation: 5.0,
       color: Colors.white12,
       child: Container(
         margin: EdgeInsets.only(right: 10),
-        width: MediaQuery.of(context).size.width - defaultPadding * 2,
+        width: MediaQuery.of(context).size.width - defaultPadding ,
         padding: EdgeInsets.only(
           top: 15,
         ),
@@ -24,8 +25,8 @@ class HousePropertyCard extends StatelessWidget {
           children: <Widget>[
             SizedBox(
               width: 200,
-              child: Text(
-                '''${house.location} ''',
+              child: Column(children: [Text(
+                "${apartments.cityName}",
                 maxLines: 10,
                 style: TextStyle(
                   fontSize: 20,
@@ -33,7 +34,25 @@ class HousePropertyCard extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   color: secondaryText,
                 ),
-              ),
+              ),Text(
+                "${apartments.neighborhoodName}",
+                maxLines: 10,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'Tajawal',
+                  fontWeight: FontWeight.w600,
+                  color: secondaryText,
+                ),
+              ),Text(
+                "${apartments.locationDescription}",
+                maxLines: 10,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'Tajawal',
+                  fontWeight: FontWeight.w600,
+                  color: secondaryText,
+                ),
+              )],),
             ),
             Container(
               // height: 100,

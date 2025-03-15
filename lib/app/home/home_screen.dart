@@ -38,7 +38,7 @@ class HomeScreen extends GetView<HomeController> {
               ? ActiveOrder(
                   controller: controller,
                 )
-              : Home(),
+              : Home(controller: controller,),
         ),
       ),
     );
