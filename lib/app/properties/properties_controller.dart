@@ -30,6 +30,7 @@ class PropertiesController extends GetxController {
 
   List<CustomerCars> myCars = [];
   List<CustomerApartments> myApartments = [];
+
   //List<CustomerCars> myCars = <CustomerCars>[].obs;
   final isLoading = false.obs;
 
@@ -37,10 +38,14 @@ class PropertiesController extends GetxController {
   void onInit() {
     print("onInit PropertiesController");
     getProperties();
-    storage = UserStorage();
     super.onInit();
   }
-
+  @override
+  void onReady() {
+    print("onReady PropertiesController");
+    getProperties();
+    super.onReady();
+  }
   Future<void> addCar() async {
     print("addCar");
     try {
@@ -93,6 +98,7 @@ class PropertiesController extends GetxController {
       print(e);
     }
   }
+
   Future<void> deleteApartment({required int id}) async {
     print("deleteApartment");
 
@@ -109,8 +115,9 @@ class PropertiesController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         Get.back();
         getProperties();
-        THelperFunctions.showSnackBar(message: 'تم حذف المنزل', title: 'حذف منزل');
-        return json.decode(response.body);
+        THelperFunctions.showSnackBar(
+            message: 'تم حذف المنزل', title: 'حذف منزل');
+       // return json.decode(response.body);
       } else {
         throw Exception('Failed to load date: ${response.statusCode}');
       }
@@ -118,10 +125,11 @@ class PropertiesController extends GetxController {
       print(e);
     }
   }
-  Future<void> getProperties() async {
 
+  Future<void> getProperties() async {
     print("getProperties");
-    try {isLoading(true);
+    try {
+      isLoading(true);
       Map<String, dynamic> body =
           await THttpHelper.get(APIConstants.endPoints.getMyProperties);
       print(body);
@@ -129,9 +137,8 @@ class PropertiesController extends GetxController {
 
       print(propertiesModel.customerCars?[0].plateNumber);
       myCars = propertiesModel.customerCars!;
-      myApartments=propertiesModel.customerApartments!;
+      myApartments = propertiesModel.customerApartments!;
       //Get.back();
-      update();
     } catch (e) {
       print(e);
     } finally {

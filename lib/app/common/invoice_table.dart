@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../models/order.dart';
 import '../constants.dart';
 
 class InvoiceTable extends StatelessWidget {
-  const InvoiceTable({Key? key}) : super(key: key);
+  InvoiceTable({Key? key, required this.ordersModel}) : super(key: key);
+  final OrdersModel ordersModel;
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +45,21 @@ class InvoiceTable extends StatelessWidget {
                 ),
               ],
               rows: [
-                invoiceDataRow(context: context, serviceName: 'بينزين', quantity: '20 liter', amount: '30\$'),
-                invoiceDataRow(context: context, serviceName: 'خدمة', quantity: 'إجرة التوصيل', amount: '6\$'),
-                invoiceDataRow(context: context, serviceName: '', quantity: 'المبلغ الكلّي', amount: '36\$'),
-
+                invoiceDataRow(
+                    context: context,
+                    serviceName: ordersModel.fuelTypeName ?? "",
+                    quantity: ordersModel.finalQuantity ??  ordersModel.orderedQuantity.toString()??"",
+                    amount: '${ordersModel.fuelTypeName ?? ""}\$'),
+                invoiceDataRow(
+                    context: context,
+                    serviceName: 'خدمة',
+                    quantity: 'إجرة التوصيل',
+                    amount: '6\$'),
+                invoiceDataRow(
+                    context: context,
+                    serviceName: '',
+                    quantity: 'المبلغ الكلّي',
+                    amount: '36\$'),
               ],
             ),
           ),

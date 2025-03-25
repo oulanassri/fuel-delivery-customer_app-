@@ -13,7 +13,6 @@ import 'adding_house_controller.dart';
 
 class AddingHouseScreen extends StatelessWidget {
   var controller = Get.put(AddingHouseController());
-  var textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

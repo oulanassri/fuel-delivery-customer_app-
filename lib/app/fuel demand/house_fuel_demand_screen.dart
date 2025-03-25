@@ -58,7 +58,10 @@ class HouseFuelDemandScreen extends GetView<FuelDemandController> {
                                   return Obx(
                                     () => GestureDetector(
                                       onTap: () {
-                                        controller.setSelectedFuelType(index);
+                                        controller.setSelectedFuelType(
+                                            value: index,
+                                            selectedFuelTypeIndex:
+                                                controller.fuelDetail[index].id??0);
                                       },
                                       child: FuelTypeCard(
                                         fuelType: controller.fuelDetail[index],
@@ -79,7 +82,12 @@ class HouseFuelDemandScreen extends GetView<FuelDemandController> {
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                           ),
-                          Container(
+                          Obx(()=>controller.myApartmentsListLength.value==0?Center(
+                            child: Text(
+                              "لا يوجد منازل ، أضف منزل إلى الممتلكات",
+                              style: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                          ) : Container(
                             height: MediaQuery.of(context).size.height / 4,
                             child: ListView.builder(
                                 itemCount: controller.myApartments.length,
@@ -105,7 +113,7 @@ class HouseFuelDemandScreen extends GetView<FuelDemandController> {
                                     ),
                                   );
                                 }),
-                          ),
+                          )),
                           Padding(
                             padding: EdgeInsets.only(right: defaultPadding),
                             child: Text(

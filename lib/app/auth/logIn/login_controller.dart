@@ -12,6 +12,7 @@ class LoginController extends GetxController {
   var isPasswordHidden=true.obs;
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
+  RxBool isLoading = false.obs;
 
   @override
   void onInit() {
@@ -21,8 +22,9 @@ class LoginController extends GetxController {
 
   Future<void> login() async {
     print("login");
-    try {
-      Map data = {
+    try {      isLoading(true);
+
+    Map data = {
         "password": passwordController.text,
         "phone": phoneController.text,
       };
@@ -39,6 +41,9 @@ class LoginController extends GetxController {
       Get.offNamed(Routes.HOME);
     } catch (e) {
       print(e);
+    }finally{
+      isLoading(false);
+
     }
   }
 }

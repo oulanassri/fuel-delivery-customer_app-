@@ -41,7 +41,7 @@ class PreviousOrder extends StatelessWidget {
                     spacing: defaultPadding / 4,
                     children: [
                       Text(
-                        "تعبئة لمنزل",
+                        ordersModel.customerCarBrand!.isNotEmpty?"تعبئة لسيارة":"تعبئة لمنزل",
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       Row(
@@ -123,7 +123,11 @@ class PreviousOrder extends StatelessWidget {
                               ],
                             )
                           : Container(),
-                      open.value == true ? InvoiceTable() : Container(),
+                      open.value == true
+                          ? InvoiceTable(
+                              ordersModel: ordersModel,
+                            )
+                          : Container(),
                       Center(
                         child: Icon(
                           open.value == false
@@ -135,7 +139,7 @@ class PreviousOrder extends StatelessWidget {
                     ]),
               ),
               Image.asset(
-                "assets/images/Home_FuelGo.png",
+                ordersModel.customerCarBrand!.isNotEmpty? "assets/images/Car_FuelGo.png":"assets/images/Home_FuelGo.png",
                 fit: BoxFit.contain,
                 width: 50,
                 height: 50,

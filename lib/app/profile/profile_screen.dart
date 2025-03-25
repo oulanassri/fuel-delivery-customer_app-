@@ -1,5 +1,6 @@
 import 'package:delivery_fuel_customer/app/home/home_controller.dart';
 import 'package:delivery_fuel_customer/app/profile/profile_controller.dart';
+import 'package:delivery_fuel_customer/native_service/get_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -45,15 +46,15 @@ class ProfileScreen extends GetView<ProfileController> {
                   children: [
                     ProfileMenuWidget(
                       title: 'الاسم الكامل',
-                      data: 'اسم + كنية',
+                      data: UserStorage.read("name")??"--",
                     ),
                     ProfileMenuWidget(
                       title: 'البريد الإلكتروني',
-                      data: 'example.com',
+                      data: UserStorage.read("email")??"--",
                     ),
                     ProfileMenuWidget(
                       title: 'الهاتف',
-                      data: '22223333',
+                      data: UserStorage.read("phone")??"--",
                     ),
                   ],
                 ),
@@ -88,6 +89,8 @@ class ProfileScreen extends GetView<ProfileController> {
                         ),
                         onConfirm: () {
                           print("confirm");
+
+                          controller.editPassword();
                         },
                         onCancel: () {
                           print("cancel");

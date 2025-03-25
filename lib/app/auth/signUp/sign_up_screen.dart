@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../../routes/app_routes.dart';
 import '../../../utils/http/http_client.dart';
@@ -44,10 +45,7 @@ class SignUpScreen extends GetView<SignUpController> {
                         duration: Duration(milliseconds: 1000),
                         child: Text(
                           "إنشاء حساب",
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .headlineMedium,
+                          style: Theme.of(context).textTheme.headlineMedium,
                         )),
                     SizedBox(
                       height: 10,
@@ -56,10 +54,7 @@ class SignUpScreen extends GetView<SignUpController> {
                         duration: Duration(milliseconds: 1300),
                         child: Text(
                           "أهلا بك",
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .headlineSmall,
+                          style: Theme.of(context).textTheme.headlineSmall,
                         )),
                   ],
                 ),
@@ -104,9 +99,7 @@ class SignUpScreen extends GetView<SignUpController> {
                                   hintText: "رقم الهاتف",
                                   controller: controller.mobileNumberController,
                                 ),
-
-                                Obx(() =>
-                                    Container(
+                                Obx(() => Container(
                                       padding: EdgeInsets.all(10),
                                       decoration: BoxDecoration(
                                         border: Border(
@@ -117,7 +110,7 @@ class SignUpScreen extends GetView<SignUpController> {
                                       child: TextField(
                                         obscureText: obscurePassword.value,
                                         controller:
-                                        controller.passwordController,
+                                            controller.passwordController,
                                         decoration: InputDecoration(
                                             suffix: InkWell(
                                               child: Icon(
@@ -129,23 +122,20 @@ class SignUpScreen extends GetView<SignUpController> {
                                               ),
                                               onTap: () {
                                                 obscurePassword.value =
-                                                !(obscurePassword.value);
+                                                    !(obscurePassword.value);
                                               },
                                             ),
                                             label: Text("أدخل كلمة السّر"),
-                                            labelStyle: Theme
-                                                .of(context)
+                                            labelStyle: Theme.of(context)
                                                 .textTheme
                                                 .titleMedium,
                                             hintText: "كلمة السّر",
                                             hintStyle:
-                                            TextStyle(color: Colors.grey),
+                                                TextStyle(color: Colors.grey),
                                             border: InputBorder.none),
                                       ),
                                     )),
-
-                                Obx(() =>
-                                    Container(
+                                Obx(() => Container(
                                       padding: EdgeInsets.all(10),
                                       decoration: BoxDecoration(
                                         border: Border(
@@ -154,10 +144,10 @@ class SignUpScreen extends GetView<SignUpController> {
                                         ),
                                       ),
                                       child: TextField(
-                                        obscureText: obscureHiddenPassword
-                                            .value,
-                                        controller:
-                                        controller.confirmPasswordController,
+                                        obscureText:
+                                            obscureHiddenPassword.value,
+                                        controller: controller
+                                            .confirmPasswordController,
                                         decoration: InputDecoration(
                                             suffix: InkWell(
                                               child: Icon(
@@ -169,31 +159,47 @@ class SignUpScreen extends GetView<SignUpController> {
                                               ),
                                               onTap: () {
                                                 obscureHiddenPassword.value =
-                                                !(obscureHiddenPassword.value);
+                                                    !(obscureHiddenPassword
+                                                        .value);
                                               },
                                             ),
-                                            label: Text(
-                                                "أدخل كلمة السّر للتحقّق"),
-                                            labelStyle: Theme
-                                                .of(context)
+                                            label:
+                                                Text("أدخل كلمة السّر للتحقّق"),
+                                            labelStyle: Theme.of(context)
                                                 .textTheme
                                                 .titleMedium,
                                             hintText: "كلمة السّر للتحقّق",
                                             hintStyle:
-                                            TextStyle(color: Colors.grey),
+                                                TextStyle(color: Colors.grey),
                                             border: InputBorder.none),
                                       ),
                                     )),
                               ],
                             ),
                           )),
-
                       SizedBox(
                         height: 40,
                       ),
                       FadeInUp(
                         duration: Duration(milliseconds: 1600),
-                        child: CustomMaterialButton(
+                        child: Obx(()=>controller.isLoading.value
+                            ? MaterialButton(
+                          onPressed: () {},
+                          height: 50,
+                          // margin: EdgeInsets.symmetric(horizontal: 50),
+                          color: primaryButton,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          // decoration: BoxDecoration(
+                          // ),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: primaryColor,
+                            ),
+                          ),
+                        )
+                            : CustomMaterialButton(
                           route: Routes.HOME,
                           text: "إنشاء الحساب",
                           buttonColor: secondaryColor,
@@ -202,7 +208,7 @@ class SignUpScreen extends GetView<SignUpController> {
 //controller.getCities();
                             controller.register();
                           },
-                        ),
+                        ),)
                       ),
                     ],
                   ),

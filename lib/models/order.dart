@@ -4,11 +4,11 @@ class OrdersModel {
   String? locationDescription;
   String? neighborhoodName;
   String? fuelTypeName;
-  int? orderedQuantity;
-  Null? price;
-  Null? finalQuantity;
-  Null? finalPrice;
-  Null? customerCarBrand;
+  String? orderedQuantity;
+  String? price;
+  String? finalQuantity;
+  String? finalPrice;
+  String? customerCarBrand;
   String? customerApartmentName;
   String? authCode;
 

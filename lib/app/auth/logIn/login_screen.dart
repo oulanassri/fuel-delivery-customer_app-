@@ -138,7 +138,24 @@ class LogInScreen extends GetView<LoginController> {
                       ),
                       FadeInUp(
                         duration: Duration(milliseconds: 1600),
-                        child: CustomMaterialButton(
+                        child: Obx(()=>controller.isLoading.value
+                            ? MaterialButton(
+                          onPressed: () {},
+                          height: 50,
+                          // margin: EdgeInsets.symmetric(horizontal: 50),
+                          color: primaryButton,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          // decoration: BoxDecoration(
+                          // ),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: primaryColor,
+                            ),
+                          ),
+                        )
+                            : CustomMaterialButton(
                           route: Routes.HOME,
                           text: "تسجيل دخول",
                           buttonColor: secondaryColor,
@@ -146,7 +163,7 @@ class LogInScreen extends GetView<LoginController> {
                           function: () {
                             controller.login();
                           },
-                        ),
+                        ),)
                       ),
                       SizedBox(
                         height: 10,

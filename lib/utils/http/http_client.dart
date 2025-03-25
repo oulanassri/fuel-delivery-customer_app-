@@ -63,9 +63,17 @@ class THttpHelper {
         body: json.encode(data));
     return _handleResponse(response);
   }
-
+  static Future<Map<String, dynamic>> postLogin(
+      {required String endpoint, required dynamic data}) async {
+    final response = await http.post(Uri.parse('$_baseUrl$endpoint'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode(data));
+    return _handleResponse(response);
+  }
   //Helper method to make a PUT request
-  static Future<Map<String, dynamic>> put(String endpoint, dynamic data) async {
+  static Future<Map<String, dynamic>> put({required String endpoint, required dynamic data}) async {
     final response = await http.put(Uri.parse('$_baseUrl$endpoint'),
         headers: {
           'Content-Type': 'application/json',
@@ -101,6 +109,7 @@ class THttpHelper {
     if (response.statusCode == 200 || response.statusCode == 201) {
       return json.decode(response.body);
     } else {
+
       throw Exception('Failed to load date: ${response.statusCode}');
     }
   }

@@ -18,11 +18,14 @@ class FuelDemandController extends GetxController {
   final String token = UserStorage.read('token');
 
   RxInt selectedFuelType = 0.obs;
+  RxInt selectedFuelTypeId = 0.obs;
+  RxInt myApartmentsListLength=0.obs;
 
   RxInt selectedCar = 0.obs;
   RxInt fuelQuantity = 0.obs;
+
   var isLoading = false.obs;
-  RxList fuelDetail = [].obs;
+  List <FuelDetailsModel>fuelDetail = [];
 
   RxInt selectedHouse = 0.obs;
   RxInt selectedHouseId = 0.obs;
@@ -44,15 +47,15 @@ class FuelDemandController extends GetxController {
 
   void setSelectedCar(int value){
     selectedCar.value = value;
-    update();
   }
   void setSelectedHouse({required int value,required int selectedHouseIndex}){
     selectedHouse.value = value;
     selectedHouseId.value=selectedHouseIndex;
   }
-  void setSelectedFuelType(int value){
+  void setSelectedFuelType({required int value,required int selectedFuelTypeIndex}){
     selectedFuelType.value = value;
-    update();
+    selectedFuelTypeId.value=selectedFuelTypeIndex;
+
   }
   Future<void> getProperties() async {
     isUploading(true);
@@ -65,6 +68,8 @@ class FuelDemandController extends GetxController {
 
       print(propertiesModel.customerCars?[0].plateNumber);
       myApartments=propertiesModel.customerApartments!;
+       myApartmentsListLength.value=propertiesModel.customerApartments!.length;
+
       selectedHouseId.value=myApartments[0].id!;
       myCars=propertiesModel.customerCars!;
       //Get.back();
@@ -96,8 +101,8 @@ class FuelDemandController extends GetxController {
             centerName: body[i]["centerName"],
             price: body[i]["price"],
           ));
-        }
-        print(fuelDetail[0].name);
+        }print(body);
+        print(fuelDetail[0].fuelTypeName);
       } else {
         throw Exception('Failed to load date: ${response.statusCode}');
       }
@@ -111,7 +116,7 @@ class FuelDemandController extends GetxController {
     print("placeHouseOrder");
     try {
       Map data ={
-        "fuelTypeId": selectedFuelType.value,
+        "fuelTypeId": selectedFuelTypeId.value,
         "orderedQuantity":fuelQuantity.value,
         "customerApartmentId":selectedHouseId.value
       } ;

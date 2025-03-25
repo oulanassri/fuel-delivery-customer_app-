@@ -5,6 +5,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../native_service/get_storage.dart';
+import 'package:http/http.dart' as http;
+
+import '../../utils/constants/api_constants.dart';
 
 class HomeController extends GetxController {
   late UserStorage storage;
@@ -113,6 +116,33 @@ class HomeController extends GetxController {
     await canLaunchUrlString(googleUrl)
         ? await launchUrlString(googleUrl)
         : throw 'Could not launch $googleUrl';
+  }
+  Future<void> trackOrder() async {
+    print("trackOrder");
+
+    try {
+      final response = await http.patch(
+        Uri.parse(
+            '${APIConstants.baseUrl}${APIConstants.endPoints.trackOrder}'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${UserStorage.read('token')}'
+        },
+      );
+      print("response.statusCode trackOrder  ${response.statusCode}");
+      print("response.statusCode trackOrder ${response.body}");
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        //  Get.back();
+        // getProperties();
+        //THelperFunctions.showSnackBar(message: 'تم طلب رمز المصادقة', title: 'رمز المصادقة');
+
+      } else {
+        throw Exception('Failed to load date: ${response.statusCode}');
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 /*
   void determinePosition() async {

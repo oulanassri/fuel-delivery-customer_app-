@@ -29,31 +29,44 @@ class OrdersScreen extends GetView<OrdersController> {
         ),
         child: Obx(() => controller.isLoading.value
             ? Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: primaryColor,
+                ),
               )
             : SingleChildScrollView(
                 child: Column(
                   spacing: defaultPadding,
                   children: [
                     SizedBox(
-                      height: defaultPadding * 2,
+                      height: defaultPadding,
                     ),
-               //     PreviousOrder(),
-                //    PreviousOrder(),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: controller.orders.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                            onLongPress: () {
+                    //     PreviousOrder(),
+                    //    PreviousOrder(),
+                    Obx(
+                      () => controller.ordersListLength.value == 0
+                          ? Center(
+                              child: Text(
+                                "لا يوجد طلبات",
+                                style: Theme.of(context).textTheme.headlineMedium,
+                              ),
+                            )
+                          : ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: controller.orders.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return GestureDetector(
+                                  onLongPress: () {},
+                                  child: PreviousOrder(
+                                    ordersModel: controller.orders[index],
+                                  ),
+                                );
+                              },
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      const Divider()),
+                    ),
 
-                            },
-                            child: PreviousOrder(
-                              ordersModel: controller.orders[index],
-                            ),
-                          );
-                        }),
                     SizedBox(
                       height: defaultPadding,
                     ),

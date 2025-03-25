@@ -5,11 +5,9 @@ import '../../../native_service/get_storage.dart';
 import '../../../routes/app_routes.dart';
 
 class SplashController extends GetxController {
-  // late UserStorage storage;
 
   @override
   void onInit() async {
-    //   storage = UserStorage();
 
     super.onInit();
   }

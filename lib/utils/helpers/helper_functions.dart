@@ -34,7 +34,7 @@ class THelperFunctions {
             color: white,
           ),
         ),
-        backgroundColor: primaryColor);
+        backgroundColor: primaryColorSnackBar);
   }
 
   static void showAlert(String title, String message, BuildContext context) {

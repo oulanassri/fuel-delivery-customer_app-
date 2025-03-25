@@ -41,7 +41,7 @@ class SignUpController extends GetxController {
   //vars of api response
   String message = '';
   bool signUpStatus = false;
-  bool isLoading = false;
+  RxBool isLoading = false.obs;
 
   @override
   void onInit() {
@@ -96,7 +96,9 @@ class SignUpController extends GetxController {
   Future<void> register() async {
     print("register");
     try {
-      Map data = {
+      isLoading(true);
+
+    Map data = {
         "name": userNameController.text,
         "password": passwordController.text,
         "phone": mobileNumberController.text,
@@ -116,16 +118,16 @@ class SignUpController extends GetxController {
         print(body);
         UserStorage.save("name",userNameController.text);
         UserStorage.save("phone",mobileNumberController.text);
-        login();
+        UserStorage.save("email",emailController.text);
+
+
+    login();
       //  Get.offNamed(Routes.HOME);
       } else {
         throw Exception('Failed to load date: ${response.statusCode}');
       }
       //  storage.save("token", value);
-      userNameController.clear();
-      passwordController.clear();
-      mobileNumberController.clear();
-      emailController.clear();
+
     } catch (e) {
       print(e);
     }
@@ -150,7 +152,8 @@ class SignUpController extends GetxController {
         "phone": mobileNumberController.text,
       };
       print(data);
-      Map<String, dynamic> body = await THttpHelper.post(
+
+      Map<String, dynamic> body = await THttpHelper.postLogin(
           endpoint: APIConstants.endPoints.login, data: data);
       print(body["token"]);
       //  print(json.decode(body["token"] ));
@@ -161,6 +164,8 @@ class SignUpController extends GetxController {
       Get.offNamed(Routes.HOME);
     } catch (e) {
       print(e);
+    }finally{
+      isLoading(false);
     }
   }
 }

@@ -79,7 +79,7 @@ class Home extends StatelessWidget {
               ),
           //    PreviousOrder(),
            //   PreviousOrder(),
-              SizedBox(
+           /*   SizedBox(
                 height: defaultPadding,
               ),
               Text("current location of the user"),
@@ -100,7 +100,7 @@ class Home extends StatelessWidget {
                         controller.currentPosition?.longitude);*/
                 },
                 child: Text("show in google map"),
-              ),
+              ),*/
             ],
           )),
     );

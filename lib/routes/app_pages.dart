@@ -16,6 +16,7 @@ import '../app/properties/properties_screen.dart';
 import '../app/settings/settings_screen.dart';
 import '../app/wallet/wallet_screen.dart';
 import '../getx_bindings/adding_house_binding.dart';
+import '../getx_bindings/car_fuel_demand.dart';
 import '../getx_bindings/login_binding.dart';
 import '../getx_bindings/orders_binding.dart';
 import '../getx_bindings/properties_binding.dart';
@@ -91,7 +92,7 @@ class AppPages {
     GetPage(
         name: Paths.CARFUELDEMAND,
         page: () => const CarFuelDemandScreen(),
-        binding: FuelDemandBinding()),
+        binding: CarFuelDemandBinding()),
     //House Fuel Demand
     GetPage(
         name: Paths.HOUSEFUELDEMAND,

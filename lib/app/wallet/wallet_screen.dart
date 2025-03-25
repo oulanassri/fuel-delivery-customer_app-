@@ -13,7 +13,7 @@ class WalletScreen extends GetView<WalletController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(WalletController());
+   // Get.put(WalletController());
 
     return Scaffold(
       drawer: CustomNavigationDrawer(),
@@ -29,29 +29,61 @@ class WalletScreen extends GetView<WalletController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             spacing: defaultPadding,
-            children:[
-             TotalAmountWidget(amount: controller.wallet,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              spacing: 10,
-              children: [
-                Text(
-                  "الرمز الخاص:",
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .titleLarge,
+            children: [
+              Container(
+                child: Obx(() => controller.isLoading.value
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : TotalAmountWidget(
+                        amount: controller.wallet,
+                      )),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 10,
+                children: [
+                  Text(
+                    "الرمز الخاص:",
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),Obx(() => controller.isLoading.value
+                      ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                      : Text(
+                    controller.otpCode.value,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall
+                        ?.copyWith(color: primaryColor),
+                  ), )
+
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 50),
+                child: MaterialButton(
+                  onPressed: () {
+                    controller.requestOTP();
+                  },
+                  height: 50,
+                  // margin: EdgeInsets.symmetric(horizontal: 50),
+                  color: secondaryColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  // decoration: BoxDecoration(
+                  // ),
+                  child: Center(
+                    child: Text(
+                      "استدعاء رمز المصادقة",
+                      style: TextStyle(
+                          color: secondaryText,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
-                Text(
-                  "2342340",
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .headlineSmall
-                      ?.copyWith(color: primaryColor),
-                ),
-              ],
-            ),
+              ),
             ],
           )),
     );
