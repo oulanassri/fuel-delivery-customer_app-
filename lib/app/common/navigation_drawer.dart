@@ -6,6 +6,9 @@ import 'package:icofont_flutter/icofont_flutter.dart';
 
 import '../../native_service/get_storage.dart';
 import '../../routes/app_routes.dart';
+import '../home/home_controller.dart';
+import '../orders/orders_controller.dart';
+import '../properties/properties_controller.dart';
 
 class CustomNavigationDrawer extends StatelessWidget {
   const CustomNavigationDrawer({super.key});
@@ -125,16 +128,25 @@ class CustomNavigationDrawer extends StatelessWidget {
 
   navigate(int index) {
     if (index == 0) {
+      HomeController controller = Get.put(HomeController());
+      controller.onReady();
       Get.toNamed(Routes.HOME);
+
     } else if (index == 1) {
       Get.toNamed(Routes.WALLET);
     } else if (index == 2) {
+      OrdersController controller = Get.put(OrdersController());
+
+      controller.getMyOrders();
       Get.toNamed(Routes.ORDERS);
     }
     else if (index == 3) {
       Get.toNamed(Routes.PROFILE);
     }
     else if (index == 4) {
+      PropertiesController controller = Get.put(PropertiesController());
+
+      controller.getProperties();
       Get.toNamed(Routes.PROPERTIES);
     }
     else if (index == 5) {
@@ -142,7 +154,7 @@ class CustomNavigationDrawer extends StatelessWidget {
     }
     else if (index == 6) {
       UserStorage.delete('token');
-      UserStorage.delete('phone');
+
       Get.offNamed(Routes.LOGIN);
 
     }

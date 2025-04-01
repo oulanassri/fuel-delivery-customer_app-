@@ -34,7 +34,7 @@ class HomeScreen extends GetView<HomeController> {
           decoration: BoxDecoration(
             gradient: gradientColorBg,
           ),
-          child: controller.orderStatus.value == "home"
+          child: controller.orderStatusId.value <10
               ? ActiveOrder(
                   controller: controller,
                 )

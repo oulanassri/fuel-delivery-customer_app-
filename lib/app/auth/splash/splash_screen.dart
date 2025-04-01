@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttericon/maki_icons.dart';
 import 'package:get/get.dart';
 
+import '../../../generated/assets.dart';
 import '../../constants.dart';
 import '../LogIn/login_screen.dart';
 import 'splash_controller.dart';
@@ -24,7 +25,7 @@ class SplashScreen extends GetView<SplashController> {
           splashTransition: SplashTransition.scaleTransition,
           splash: Center(
             child: Image.asset(
-              "assets/images/logo.png",
+              Assets.imagesLogo,
               fit: BoxFit.cover,
               width: 200,
             ),

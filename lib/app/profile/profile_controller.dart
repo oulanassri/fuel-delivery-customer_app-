@@ -12,22 +12,22 @@ import '../../utils/http/http_client.dart';
 import 'package:http/http.dart' as http;
 
 class ProfileController extends GetxController {
-  late UserStorage storage;
   static final String token = UserStorage.read('token');
+  RxBool isLoading = false.obs;
 
   TextEditingController oldPassword = TextEditingController();
   TextEditingController newPassword = TextEditingController();
   TextEditingController renewPassword = TextEditingController();
   @override
   void onInit() {
-    storage = UserStorage();
     super.onInit();
   }
   Future<void> editPassword() async {
     Get.back();
     print("editPassword");
-    try {
-      Map data ={
+    try {      isLoading(true);
+
+    Map data ={
         "oldPassword": oldPassword.text,
         "password": newPassword.text,
         "rePassword":  renewPassword.text
@@ -61,6 +61,7 @@ class ProfileController extends GetxController {
     } catch (e) {
       print(e);
     }finally{
+      isLoading(false);
 
     }
   }

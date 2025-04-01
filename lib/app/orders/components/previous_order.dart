@@ -41,17 +41,17 @@ class PreviousOrder extends StatelessWidget {
                     spacing: defaultPadding / 4,
                     children: [
                       Text(
-                        ordersModel.customerCarBrand!.isNotEmpty?"تعبئة لسيارة":"تعبئة لمنزل",
+                        ordersModel.customerCarBrand!="null"?"تعبئة لسيارة":"تعبئة لمنزل",
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       Row(
                         children: [
                           Text(
-                            "رقم الطلب :",
+                            "الرمز الخاص الطلب :",
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           Text(
-                            ordersModel.orderNumber ?? "",
+                            ordersModel.authCode ?? "",
                             style: Theme.of(context).textTheme.labelSmall,
                           ),
                         ],
@@ -113,11 +113,11 @@ class PreviousOrder extends StatelessWidget {
                                   style: Theme.of(context).textTheme.titleLarge,
                                 ),
                                 Text(
-                                  "الاسم الكامل",
+                                  ordersModel.customerName??"",
                                   style: Theme.of(context).textTheme.labelSmall,
                                 ),
                                 Text(
-                                  "0936262626",
+                                  ordersModel.customerPhone??"",
                                   style: Theme.of(context).textTheme.labelSmall,
                                 ),
                               ],
@@ -139,7 +139,7 @@ class PreviousOrder extends StatelessWidget {
                     ]),
               ),
               Image.asset(
-                ordersModel.customerCarBrand!.isNotEmpty? "assets/images/Car_FuelGo.png":"assets/images/Home_FuelGo.png",
+                ordersModel.customerCarBrand!="null"? "assets/images/Car_FuelGo.png":"assets/images/Home_FuelGo.png",
                 fit: BoxFit.contain,
                 width: 50,
                 height: 50,

@@ -8,12 +8,14 @@ import '../constants.dart';
 import 'components/previous_order.dart';
 import 'orders_controller.dart';
 
-class OrdersScreen extends GetView<OrdersController> {
-  const OrdersScreen({Key? key}) : super(key: key);
+class OrdersScreen extends StatelessWidget {
+   OrdersScreen({Key? key}) : super(key: key);
+  OrdersController controller = Get.find<OrdersController>();
 
   @override
   Widget build(BuildContext context) {
-    Get.put(OrdersController());
+   // Get.put(OrdersController());
+   // controller.getMyOrders();
 
     return Scaffold(
       drawer: CustomNavigationDrawer(),
@@ -33,40 +35,36 @@ class OrdersScreen extends GetView<OrdersController> {
                   color: primaryColor,
                 ),
               )
-            : SingleChildScrollView(
+            : controller.ordersListLength.value == 0
+            ? Center(
+          child: Text(
+            "لا يوجد طلبات",
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+        )
+            :SingleChildScrollView(
                 child: Column(
                   spacing: defaultPadding,
                   children: [
                     SizedBox(
                       height: defaultPadding,
                     ),
-                    //     PreviousOrder(),
-                    //    PreviousOrder(),
-                    Obx(
-                      () => controller.ordersListLength.value == 0
-                          ? Center(
-                              child: Text(
-                                "لا يوجد طلبات",
-                                style: Theme.of(context).textTheme.headlineMedium,
-                              ),
-                            )
-                          : ListView.separated(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: controller.orders.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return GestureDetector(
-                                  onLongPress: () {},
-                                  child: PreviousOrder(
-                                    ordersModel: controller.orders[index],
-                                  ),
-                                );
-                              },
-                              separatorBuilder:
-                                  (BuildContext context, int index) =>
-                                      const Divider()),
-                    ),
 
+                    ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: controller.orders.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                            onLongPress: () {},
+                            child: PreviousOrder(
+                              ordersModel: controller.orders[index],
+                            ),
+                          );
+                        },
+                        separatorBuilder:
+                            (BuildContext context, int index) =>
+                        const Divider()),
                     SizedBox(
                       height: defaultPadding,
                     ),

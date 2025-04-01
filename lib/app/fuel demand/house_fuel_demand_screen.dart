@@ -12,12 +12,13 @@ import 'components/house_components/house_card.dart';
 import 'fuel_demand_controller.dart';
 
 class HouseFuelDemandScreen extends GetView<FuelDemandController> {
-  const HouseFuelDemandScreen({Key? key}) : super(key: key);
+   HouseFuelDemandScreen({Key? key}) : super(key: key);
+  FuelDemandController controller=Get.find<FuelDemandController>();
 
   @override
   Widget build(BuildContext context) {
-    Get.put(FuelDemandController());
-
+    controller.getFuelDetails();
+    controller.getProperties();
     return Container(
       decoration: BoxDecoration(gradient: gradientColorBg),
       child: Scaffold(

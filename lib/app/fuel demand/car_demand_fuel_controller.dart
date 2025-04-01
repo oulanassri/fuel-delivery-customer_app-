@@ -18,6 +18,8 @@ import '../../utils/http/http_client.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+
+import '../home/home_controller.dart';
 class CarFuelDemandController extends GetxController {
   final String token = UserStorage.read('token');
   late double latitude, longitude;
@@ -34,7 +36,7 @@ class CarFuelDemandController extends GetxController {
   RxInt fuelQuantity = 0.obs;
 
   var isLoading = false.obs;
-  List <FuelDetailsModel>fuelDetail = [];
+  List fuelDetail = [].obs;
   RxString selectedCity = "دمشق".obs;
   late RxInt selectedCityId = 1.obs;
   late RxInt selectedNeighborhoodId = 1.obs;
@@ -62,7 +64,17 @@ class CarFuelDemandController extends GetxController {
 
     super.onInit();
   }
+  @override
+  void onReady() {
+    getProperties();
+    getFuelDetails();
+    getCities();
+    getCurrentLocation();
 
+    getNeighborhood(cityId:1);
+
+    super.onReady();
+  }
 
   void setSelectedCity(String value) {
 
@@ -108,7 +120,6 @@ class CarFuelDemandController extends GetxController {
       print(body);
       PropertiesModel propertiesModel = PropertiesModel.fromJson(body);
 
-      print(propertiesModel.customerCars?[0].plateNumber);
       myCars=propertiesModel.customerCars!;
       myCarsListLength.value=propertiesModel.customerCars!.length;
       selectedCarId.value=propertiesModel.customerCars![0].id!;
@@ -133,7 +144,7 @@ class CarFuelDemandController extends GetxController {
           });
       if (response.statusCode == 200 || response.statusCode == 201) {
         List<dynamic> body = json.decode(response.body);
-
+        fuelDetail.clear();
         for (int i = 0; i < body.length; i++) {
           fuelDetail.add(FuelDetailsModel(
             id: body[i]["id"],
@@ -176,7 +187,8 @@ class CarFuelDemandController extends GetxController {
     } catch (e) {
       print(e);
     }finally{
-
+      HomeController controller = Get.put(HomeController());
+      controller.onReady();
       Get.toNamed(Routes.HOME);
     }
   }
@@ -191,7 +203,7 @@ class CarFuelDemandController extends GetxController {
         });
     if (response.statusCode == 200 || response.statusCode == 201) {
       List<dynamic> body = json.decode(response.body);
-
+      cities.clear();
       for (int i = 0; i < body.length; i++) {
         cities.add(CityModel(id: body[i]["id"], name: body[i]["name"]));
       }

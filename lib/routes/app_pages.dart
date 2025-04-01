@@ -66,7 +66,7 @@ class AppPages {
     //Orders
     GetPage(
         name: Paths.ORDERS,
-        page: () => const OrdersScreen(),
+        page: () =>  OrdersScreen(),
         binding: OrdersBinding()),
     //Profile
     GetPage(
@@ -91,12 +91,12 @@ class AppPages {
     //Car Fuel Demand
     GetPage(
         name: Paths.CARFUELDEMAND,
-        page: () => const CarFuelDemandScreen(),
+        page: () =>  CarFuelDemandScreen(),
         binding: CarFuelDemandBinding()),
     //House Fuel Demand
     GetPage(
         name: Paths.HOUSEFUELDEMAND,
-        page: () => const HouseFuelDemandScreen(),
+        page: () =>  HouseFuelDemandScreen(),
         binding: FuelDemandBinding()),
 
   ];

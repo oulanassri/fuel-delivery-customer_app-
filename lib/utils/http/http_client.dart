@@ -47,7 +47,7 @@ class THttpHelper {
   static Future<Map<String, dynamic>> get(String endpoint) async {
     final response = await http.get(Uri.parse('$_baseUrl$endpoint'), headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token'
+      'Authorization': 'Bearer ${UserStorage.read('token')}'
     });
     return _handleResponse(response);
   }

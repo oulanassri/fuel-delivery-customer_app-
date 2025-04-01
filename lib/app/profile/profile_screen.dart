@@ -61,7 +61,24 @@ class ProfileScreen extends GetView<ProfileController> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: defaultPadding),
-                child: CommonMaterialButton(
+                child:Obx(()=>controller.isLoading.value
+                    ? MaterialButton(
+                  onPressed: () {},
+                  height: 50,
+                  // margin: EdgeInsets.symmetric(horizontal: 50),
+                  color: primaryButton,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  // decoration: BoxDecoration(
+                  // ),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: primaryColor,
+                    ),
+                  ),
+                )
+                    :  CommonMaterialButton(
                   title: 'تغيير كلمة السّر',
                   function: () {
                     Get.defaultDialog(
@@ -96,7 +113,7 @@ class ProfileScreen extends GetView<ProfileController> {
                           print("cancel");
                         });
                   },
-                ),
+                )),
               ),
             ],
           ),

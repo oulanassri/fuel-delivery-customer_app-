@@ -2,12 +2,17 @@
 class Assets {
   Assets._();
 
+  static const String imagesAddOrder = 'assets/images/addOrder.png';
+  static const String imagesArrivedTruck = 'assets/images/arrived_truck.png';
   static const String imagesCar = 'assets/images/car.png';
   static const String imagesCarFuelGo = 'assets/images/Car_FuelGo.png';
   static const String imagesDieselFuelGo = 'assets/images/Diesel_FuelGo.png';
   static const String imagesGasolineFuelGo = 'assets/images/Gasoline_FuelGo.png';
   static const String imagesHomeFuelGo = 'assets/images/Home_FuelGo.png';
   static const String imagesLogo = 'assets/images/logo.png';
+  static const String imagesOntheway = 'assets/images/ontheway.png';
+  static const String imagesOrderDone = 'assets/images/order_done.png';
+  static const String imagesStart = 'assets/images/Start.png';
   static const String imagesTruckFuelGo = 'assets/images/Truck_FuelGo.png';
   static const String tajawalTajawalBlack = 'assets/fonts/Tajawal/Tajawal-Black.ttf';
   static const String tajawalTajawalBold = 'assets/fonts/Tajawal/Tajawal-Bold.ttf';

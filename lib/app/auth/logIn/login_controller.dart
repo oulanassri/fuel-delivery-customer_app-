@@ -6,6 +6,7 @@ import '../../../native_service/get_storage.dart';
 import '../../../routes/app_routes.dart';
 import '../../../utils/constants/api_constants.dart';
 import '../../../utils/http/http_client.dart';
+import '../../home/home_controller.dart';
 
 class LoginController extends GetxController {
  // late UserStorage storage;
@@ -29,7 +30,7 @@ class LoginController extends GetxController {
         "phone": phoneController.text,
       };
       print(data);
-      Map<String, dynamic> body = await THttpHelper.post(
+      Map<String, dynamic> body = await THttpHelper.postLogin(
           endpoint: APIConstants.endPoints.login, data: data);
       print(body["token"]);
       //  print(json.decode(body["token"] ));
@@ -37,7 +38,8 @@ class LoginController extends GetxController {
       UserStorage.save("phone", phoneController.text);
       phoneController.clear();
       passwordController.clear();
-
+    HomeController controller = Get.put(HomeController());
+    controller.onReady();
       Get.offNamed(Routes.HOME);
     } catch (e) {
       print(e);

@@ -7,6 +7,8 @@ import '../../../native_service/get_storage.dart';
 import '../../../routes/app_routes.dart';
 import '../../common/custom_material_button.dart';
 import '../../constants.dart';
+import '../../fuel demand/car_demand_fuel_controller.dart';
+import '../../fuel demand/fuel_demand_controller.dart';
 import '../../orders/components/previous_order.dart';
 
 class Home extends StatelessWidget {
@@ -19,6 +21,7 @@ class Home extends StatelessWidget {
       child: Container(
           padding: EdgeInsets.all(defaultPadding),
           width: double.infinity,
+          height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
             gradient: gradientColorBg,
           ),
@@ -46,12 +49,21 @@ class Home extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             CustomMaterialButton1(
-                              route: Routes.CARFUELDEMAND,
-                              text: 'سيّارة',
-                            ),
+                                text: 'سيّارة',
+                                fun: () {
+                                  CarFuelDemandController controller =
+                                      Get.put(CarFuelDemandController());
+                                  controller.onReady();
+                                  Get.toNamed(Routes.CARFUELDEMAND);
+                                }),
                             CustomMaterialButton1(
-                              route: Routes.HOUSEFUELDEMAND,
                               text: 'منزل',
+                              fun: () {
+                                FuelDemandController controller =
+                                    Get.put(FuelDemandController());
+                                controller.onReady();
+                                Get.toNamed(Routes.HOUSEFUELDEMAND);
+                              },
                             ),
                           ],
                         ));
@@ -73,13 +85,14 @@ class Home extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(
+
+             /* Text(
                 "عمليات التّعبئة السابقة",
                 style: Theme.of(context).textTheme.titleLarge,
-              ),
-          //    PreviousOrder(),
-           //   PreviousOrder(),
-           /*   SizedBox(
+              ),*/
+              //    PreviousOrder(),
+              //   PreviousOrder(),
+              /*   SizedBox(
                 height: defaultPadding,
               ),
               Text("current location of the user"),

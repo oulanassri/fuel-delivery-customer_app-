@@ -16,6 +16,7 @@ class AddingHouseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    controller.getCities();
     return Scaffold(
       appBar: CustomAppBar(
         title: "إضافة منزل",

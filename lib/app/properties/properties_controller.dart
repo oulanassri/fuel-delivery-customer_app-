@@ -16,7 +16,7 @@ import '../../utils/helpers/helper_functions.dart';
 import '../../utils/http/http_client.dart';
 
 class PropertiesController extends GetxController {
-  late UserStorage storage;
+  static final String token = UserStorage.read('token');
 
   TextEditingController plateNumberController = TextEditingController();
   TextEditingController brandController = TextEditingController();
@@ -28,8 +28,8 @@ class PropertiesController extends GetxController {
   TextEditingController houseCityController = TextEditingController();
   TextEditingController houseNeighborhoodController = TextEditingController();
 
-  List<CustomerCars> myCars = [];
-  List<CustomerApartments> myApartments = [];
+  List myCars = [].obs;
+  List myApartments = [].obs;
 
   //List<CustomerCars> myCars = <CustomerCars>[].obs;
   final isLoading = false.obs;
@@ -46,7 +46,9 @@ class PropertiesController extends GetxController {
     getProperties();
     super.onReady();
   }
-  Future<void> addCar() async {
+  Future<void> addCar() async {        Get.back();
+
+  print('UserStorage.read(token)  ${UserStorage.read('token')}');
     print("addCar");
     try {
       Map data = {
@@ -57,18 +59,29 @@ class PropertiesController extends GetxController {
         "phone": UserStorage.read('phone'),
       };
       print(data);
-      Map<String, dynamic> body = await THttpHelper.post(
-          endpoint: APIConstants.endPoints.addCar, data: data);
-      print(body);
 
-      plateNumberController.clear();
-      brandController.clear();
-      yearOfManufactureController.clear();
-      colorController.clear();
-      getProperties();
-      Get.back();
-      THelperFunctions.showSnackBar(message: 'تم إضافة السيّارة', title: '');
+      final response1 = await http.post(Uri.parse('${APIConstants.baseUrl}${APIConstants.endPoints.addCar}'),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token'
+          },
+          body: json.encode(data));
+
+      if (response1.statusCode == 201 || response1.statusCode == 200) {
+        print("response.statusCode ${response1.statusCode}");
+        plateNumberController.clear();
+        brandController.clear();
+        yearOfManufactureController.clear();
+        colorController.clear();
+        getProperties();
+        THelperFunctions.showSnackBar(message: 'تم إضافة السيّارة', title: 'إضافة سيّارة');
+        // return json.decode(response1.body);
+      } else {
+        //  throw Exception('Failed to load date: ${response1.statusCode}');
+      }
+
     } catch (e) {
+
       print(e);
     }
   }
@@ -135,11 +148,13 @@ class PropertiesController extends GetxController {
       print(body);
       PropertiesModel propertiesModel = PropertiesModel.fromJson(body);
 
-      print(propertiesModel.customerCars?[0].plateNumber);
+    //  print(propertiesModel.customerCars?[0].plateNumber);
       myCars = propertiesModel.customerCars!;
       myApartments = propertiesModel.customerApartments!;
       //Get.back();
     } catch (e) {
+      print("error getProperties");
+
       print(e);
     } finally {
       isLoading(false);

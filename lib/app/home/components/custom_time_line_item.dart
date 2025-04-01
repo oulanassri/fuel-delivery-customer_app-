@@ -6,7 +6,7 @@ import '../../constants.dart';
 
 class CustomTimeLineItem extends StatelessWidget {
   final bool isFirst, isPast, isLast, isCompleted;
-  final String status, date, description;
+  final String status, date, description,image;
 
   CustomTimeLineItem(
       {Key? key,
@@ -16,7 +16,7 @@ class CustomTimeLineItem extends StatelessWidget {
       required this.status,
       required this.isCompleted,
       required this.date,
-      required this.description})
+      required this.description, required this.image})
       : super(key: key);
 
   @override
@@ -91,12 +91,12 @@ class CustomTimeLineItem extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: isCompleted ? primaryColor : secondaryColor),
                   ),
-                  Text(
+                  /*Text(
                     date,
                     style: TextStyle(
                         fontSize: 12,
                         color: isCompleted ? primaryColor : secondaryColor),
-                  ),
+                  ),*/
                   Text(
                     description,
                     style: TextStyle(
@@ -106,6 +106,12 @@ class CustomTimeLineItem extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+          Image.asset(
+            image,
+            height: 80,
+            width: 80,
+            fit: BoxFit.contain,
           ),
         ],
       ),

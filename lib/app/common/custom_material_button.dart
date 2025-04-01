@@ -7,18 +7,15 @@ import 'package:get/get_core/src/get_main.dart';
 
 class CustomMaterialButton1 extends StatelessWidget {
   const CustomMaterialButton1(
-      {Key? key, required this.route, required this.text, })
+      {Key? key, required this.text, required this.fun, })
       : super(key: key);
-  final String route;
   final String text;
-
+final VoidCallback fun;
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      onPressed: () {
-        Get.toNamed(route);
-      },
+      onPressed:fun,
       height: 50,
       // margin: EdgeInsets.symmetric(horizontal: 50),
       color: primaryButton,

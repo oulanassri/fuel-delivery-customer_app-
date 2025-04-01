@@ -49,17 +49,8 @@ class InvoiceTable extends StatelessWidget {
                     context: context,
                     serviceName: ordersModel.fuelTypeName ?? "",
                     quantity: ordersModel.finalQuantity ??  ordersModel.orderedQuantity.toString()??"",
-                    amount: '${ordersModel.fuelTypeName ?? ""}\$'),
-                invoiceDataRow(
-                    context: context,
-                    serviceName: 'خدمة',
-                    quantity: 'إجرة التوصيل',
-                    amount: '6\$'),
-                invoiceDataRow(
-                    context: context,
-                    serviceName: '',
-                    quantity: 'المبلغ الكلّي',
-                    amount: '36\$'),
+                    amount: '${ordersModel.price ?? ""}\$',),
+
               ],
             ),
           ),

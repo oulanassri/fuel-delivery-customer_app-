@@ -11,11 +11,10 @@ import '../../../native_service/get_storage.dart';
 import '../../../routes/app_routes.dart';
 import '../../../utils/constants/api_constants.dart';
 import '../../../utils/http/http_client.dart';
+import '../../home/home_controller.dart';
 
 class SignUpController extends GetxController {
   static final String _baseUrl = APIConstants.baseUrl;
-  final getStorage = GetStorage();
-  late UserStorage storage;
   int? statusCode = 0;
 
   //vars of screen
@@ -51,7 +50,6 @@ class SignUpController extends GetxController {
     //  password = '';
     //  confirmPassword = '';
 
-    storage = UserStorage();
     // _addListener();
     // textFieldFocusNode.hasFocus = false;
     super.onInit();
@@ -105,7 +103,7 @@ class SignUpController extends GetxController {
         "email": emailController.text,
       };
       print(data);
-      Map<String, dynamic> body;
+
       final response = await http.post(
           Uri.parse('$_baseUrl${APIConstants.endPoints.register}'),
           headers: {
@@ -114,11 +112,13 @@ class SignUpController extends GetxController {
           body: json.encode(data));
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        body = json.decode(response.body);
-        print(body);
-        UserStorage.save("name",userNameController.text);
-        UserStorage.save("phone",mobileNumberController.text);
-        UserStorage.save("email",emailController.text);
+      final  body = json.decode(response.body);
+        print(body["name"]);
+        print(body["phone"]);
+        print(body["email"]);
+        UserStorage.save("name",body["name"]);
+        UserStorage.save("phone",body["phone"]);
+        UserStorage.save("email",body["email"]);
 
 
     login();
@@ -160,7 +160,8 @@ class SignUpController extends GetxController {
       UserStorage.save("token", body["token"]);
       mobileNumberController.clear();
       passwordController.clear();
-
+      HomeController controller = Get.put(HomeController());
+      controller.onReady();
       Get.offNamed(Routes.HOME);
     } catch (e) {
       print(e);

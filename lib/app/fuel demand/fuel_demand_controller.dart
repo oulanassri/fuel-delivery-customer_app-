@@ -14,6 +14,8 @@ import '../../utils/helpers/helper_functions.dart';
 import '../../utils/http/http_client.dart';
 import 'package:http/http.dart' as http;
 
+import '../home/home_controller.dart';
+
 class FuelDemandController extends GetxController {
   final String token = UserStorage.read('token');
 
@@ -43,7 +45,13 @@ class FuelDemandController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void onReady() {
+    getProperties();
+    getFuelDetails();
 
+    super.onReady();
+  }
 
   void setSelectedCar(int value){
     selectedCar.value = value;
@@ -66,7 +74,6 @@ class FuelDemandController extends GetxController {
       print(body);
       PropertiesModel propertiesModel = PropertiesModel.fromJson(body);
 
-      print(propertiesModel.customerCars?[0].plateNumber);
       myApartments=propertiesModel.customerApartments!;
        myApartmentsListLength.value=propertiesModel.customerApartments!.length;
 
@@ -93,7 +100,7 @@ class FuelDemandController extends GetxController {
           });
       if (response.statusCode == 200 || response.statusCode == 201) {
         List<dynamic> body = json.decode(response.body);
-
+        fuelDetail.clear();
         for (int i = 0; i < body.length; i++) {
           fuelDetail.add(FuelDetailsModel(
             id: body[i]["id"],
@@ -103,6 +110,8 @@ class FuelDemandController extends GetxController {
           ));
         }print(body);
         print(fuelDetail[0].fuelTypeName);
+        selectedFuelTypeId.value=fuelDetail[0].id!;
+
       } else {
         throw Exception('Failed to load date: ${response.statusCode}');
       }
@@ -130,7 +139,8 @@ class FuelDemandController extends GetxController {
     } catch (e) {
       print(e);
     }finally{
-
+      HomeController controller = Get.put(HomeController());
+      controller.onReady();
       Get.toNamed(Routes.HOME);
     }
   }

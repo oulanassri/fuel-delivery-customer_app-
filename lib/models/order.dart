@@ -4,13 +4,19 @@ class OrdersModel {
   String? locationDescription;
   String? neighborhoodName;
   String? fuelTypeName;
-  String? orderedQuantity;
-  String? price;
-  String? finalQuantity;
-  String? finalPrice;
+  String? orderedQuantity;//
+  String? price;//
+  String? finalQuantity;//
+  String? finalPrice;//
   String? customerCarBrand;
-  String? customerApartmentName;
+  String? customerApartmentName;//
   String? authCode;
+  String? statusName;
+  String? customerName;
+  String? customerPhone;
+  String? driverName;
+  String? driverPhone;
+  String? deliveryFee;//
 
   OrdersModel(
       {this.date,
@@ -24,7 +30,13 @@ class OrdersModel {
         this.finalPrice,
         this.customerCarBrand,
         this.customerApartmentName,
-        this.authCode});
+        this.authCode,
+        this.statusName,
+        this.customerName,
+        this.customerPhone,
+        this.driverName,
+        this.driverPhone,
+        this.deliveryFee});
 
   OrdersModel.fromJson(Map<String, dynamic> json) {
     date = json['date'];
@@ -32,13 +44,19 @@ class OrdersModel {
     locationDescription = json['locationDescription'];
     neighborhoodName = json['neighborhoodName'];
     fuelTypeName = json['fuelTypeName'];
-    orderedQuantity = json['orderedQuantity'];
+    orderedQuantity = json['orderedQuantity'].toString();
     price = json['price'];
-    finalQuantity = json['finalQuantity'];
-    finalPrice = json['finalPrice'];
-    customerCarBrand = json['customerCarBrand'];
-    customerApartmentName = json['customerApartmentName'];
+    finalQuantity = json['finalQuantity'].toString();
+    finalPrice = json['finalPrice'].toString();
+    customerCarBrand = json['customerCarBrand']??"";
+    customerApartmentName = json['customerApartmentName'].toString();
     authCode = json['authCode'];
+    statusName = json['statusName'];
+    customerName = json['customerName'];
+    customerPhone = json['customerPhone'];
+    driverName = json['driverName'];
+    driverPhone = json['driverPhone'];
+    deliveryFee = json['deliveryFee'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -55,6 +73,12 @@ class OrdersModel {
     data['customerCarBrand'] = this.customerCarBrand;
     data['customerApartmentName'] = this.customerApartmentName;
     data['authCode'] = this.authCode;
+    data['statusName'] = this.statusName;
+    data['customerName'] = this.customerName;
+    data['customerPhone'] = this.customerPhone;
+    data['driverName'] = this.driverName;
+    data['driverPhone'] = this.driverPhone;
+    data['deliveryFee'] = this.deliveryFee;
     return data;
   }
 }

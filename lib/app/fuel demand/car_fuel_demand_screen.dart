@@ -15,12 +15,12 @@ import 'components/car_components/car_card.dart';
 import 'components/car_components/custom_car_sleek_slider.dart';
 import 'components/fuel_type_card.dart';
 
-class CarFuelDemandScreen extends GetView<CarFuelDemandController> {
-  const CarFuelDemandScreen({Key? key}) : super(key: key);
+class CarFuelDemandScreen extends StatelessWidget {
+   CarFuelDemandScreen({Key? key}) : super(key: key);
+  CarFuelDemandController controller=Get.find<CarFuelDemandController>();
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       decoration: BoxDecoration(gradient: gradientColorBg),
       child: Scaffold(

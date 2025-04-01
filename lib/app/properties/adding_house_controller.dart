@@ -92,12 +92,15 @@ class AddingHouseController extends GetxController {
       Map<String, dynamic> body = await THttpHelper.post(
           endpoint: APIConstants.endPoints.addApartment, data: data);
       print(body);
+
       THelperFunctions.showSnackBar(
           message: 'تم إضافة المنزل بنجاح', title: 'إضافة منزل');
       //
     } catch (e) {
       print(e);
     }finally{
+      PropertiesController controller = Get.find<PropertiesController>();
+      controller.getProperties();
 
       Get.toNamed(Routes.PROPERTIES);
     }

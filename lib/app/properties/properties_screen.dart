@@ -19,11 +19,11 @@ import 'components/house_property_card.dart';
 
 class PropertiesScreen extends StatelessWidget {
   PropertiesScreen({Key? key}) : super(key: key);
-  PropertiesController controller = Get.put(PropertiesController());
+  PropertiesController controller = Get.find<PropertiesController>();
 
   @override
   Widget build(BuildContext context) {
-    controller.getProperties();
+
     return Scaffold(
       drawer: CustomNavigationDrawer(),
       appBar: CustomAppBar(
@@ -155,6 +155,7 @@ class PropertiesScreen extends StatelessWidget {
                         ),
                       ],
                     ),
+                    controller.myCars.isNotEmpty?
                     ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -198,7 +199,9 @@ class PropertiesScreen extends StatelessWidget {
                               ),
                             ),
                           );
-                        }),
+                        }):Container(),
+                    controller.myApartments.isNotEmpty?
+
                     ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -237,7 +240,7 @@ class PropertiesScreen extends StatelessWidget {
                               apartments: controller.myApartments[index],
                             ),
                           );
-                        }),
+                        }):Container(),
                     SizedBox(
                       height: defaultPadding / 2,
                     ),
