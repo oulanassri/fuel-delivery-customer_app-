@@ -7,6 +7,7 @@ import 'package:get/get_state_manager/src/simple/get_view.dart';
 import '../../models/properties.dart';
 import '../../native_service/get_storage.dart';
 import '../../routes/app_routes.dart';
+import '../../utils/helpers/helper_functions.dart';
 import '../auth/components/custom_text_form_field.dart';
 import '../common/custom_app_bar.dart';
 import '../common/custom_material_button.dart';
@@ -63,7 +64,7 @@ class PropertiesScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 50),
+                          padding: EdgeInsets.symmetric(horizontal: 0),
                           child: MaterialButton(
                             onPressed: () {
                               Get.defaultDialog(
@@ -101,7 +102,18 @@ class PropertiesScreen extends StatelessWidget {
                                     ),
                                   ),
                                   onConfirm: () {
-                                    controller.addCar();
+                                    if(controller.plateNumberController.text.isNotEmpty&&
+                                        controller.brandController.text.isNotEmpty&&
+                                        controller.colorController.text.isNotEmpty&&
+                                        controller.yearOfManufactureController.text.isNotEmpty
+                                    ) {
+                                      controller.addCar();
+                                    }else{
+                                      THelperFunctions.showSnackBar(
+                                          title: "رسالة خطأ",
+                                          message:
+                                          "يُرجى ملئ الخانات جميعها");
+                                    }
                                     print("confirm");
                                   },
                                   onCancel: () {
@@ -130,7 +142,7 @@ class PropertiesScreen extends StatelessWidget {
                           width: defaultPadding,
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 50),
+                          padding: EdgeInsets.symmetric(horizontal: 0),
                           child: MaterialButton(
                             onPressed: () {
                               Get.offAndToNamed(Routes.ADDINGHOUSESCREEN);

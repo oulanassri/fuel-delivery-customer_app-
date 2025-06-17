@@ -77,10 +77,13 @@ class PropertiesController extends GetxController {
         THelperFunctions.showSnackBar(message: 'تم إضافة السيّارة', title: 'إضافة سيّارة');
         // return json.decode(response1.body);
       } else {
+        THelperFunctions.showSnackBar(message: 'حدث خطأ ما أثناء إضافة السيّارة، يُرجى إعادة المحاولة.', title: 'إضافة سيّارة');
+
         //  throw Exception('Failed to load date: ${response1.statusCode}');
       }
 
     } catch (e) {
+      THelperFunctions.showSnackBar(message: 'حدث خطأ ما أثناء إضافة السيّارة، يُرجى إعادة المحاولة.', title: 'إضافة سيّارة');
 
       print(e);
     }

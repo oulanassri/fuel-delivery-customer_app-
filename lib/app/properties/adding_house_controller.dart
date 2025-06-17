@@ -26,20 +26,20 @@ class AddingHouseController extends GetxController {
   Position? currentPosition;
   var isLoading = false.obs;
   late GeoPoint currentPointPosition;
-  late double latitude, longitude;
+  late double latitude=0, longitude=0;
   var listSource = <SearchInfo>[].obs;
 
   TextEditingController houseLocationDetailsController =
       TextEditingController();
 
   List<CustomerCars> myCars = [];
-  List<CityModel> cities = [];
-  List<NeighborhoodModel> neighborhoodes = [];
+  List cities = [].obs;
+  List neighborhoodes = [].obs;
   static final String _baseUrl = APIConstants.baseUrl;
-  RxString selectedCity = "دمشق".obs;
-  late RxInt selectedCityId = 1.obs;
-  late RxInt selectedNeighborhoodId = 1.obs;
-  Rx<String?> selectedNeighborhood = "المزة".obs;
+  RxString selectedCity = "إدلب".obs;
+  late RxInt selectedCityId = 12.obs;
+  late RxInt selectedNeighborhoodId = 58.obs;
+  Rx<String?> selectedNeighborhood = "أريحا".obs;
 
 //Int selectedCityId=1 as Int;
   @override
@@ -47,7 +47,7 @@ class AddingHouseController extends GetxController {
     print("onInit AddingHouseController");
     getCities();
     getCurrentLocation();
-    getNeighborhood(cityId:1);
+    getNeighborhood(cityId:12);
     super.onInit();
   }
 
@@ -117,11 +117,13 @@ class AddingHouseController extends GetxController {
           });
       if (response.statusCode == 200 || response.statusCode == 201) {
         List<dynamic> body = json.decode(response.body);
-
+print(body.toString());
         for (int i = 0; i < body.length; i++) {
           cities.add(CityModel(id: body[i]["id"], name: body[i]["name"]));
-        }
+        }selectedCity.value = cities[0].name;
+        selectedCityId.value= cities[0].id!;
         print(cities[0].name);
+        print(cities[0].id);
       } else {
         throw Exception('Failed to load date: ${response.statusCode}');
       }
@@ -156,6 +158,9 @@ class AddingHouseController extends GetxController {
         }
         selectedNeighborhood.value = neighborhoodes[0].name;
         selectedNeighborhoodId.value= neighborhoodes[0].id!;
+        print(neighborhoodes[0].name);
+        print(neighborhoodes[0].id);
+
       } else {
         throw Exception('Failed to load date: ${response.statusCode}');
       }

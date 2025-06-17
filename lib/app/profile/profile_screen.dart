@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import '../../utils/helpers/helper_functions.dart';
+import '../../utils/validators/validation.dart';
 import '../common/common_material_button.dart';
 import '../common/custom_app_bar.dart';
 import '../common/custom_text_form_field1.dart';
@@ -40,7 +42,7 @@ class ProfileScreen extends GetView<ProfileController> {
                   borderRadius: BorderRadius.circular(15),
                   gradient: gradientColorBg,
                 ),
-                child: Column(
+                child: Column(crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   spacing: defaultPadding,
                   children: [
@@ -48,14 +50,21 @@ class ProfileScreen extends GetView<ProfileController> {
                       title: 'الاسم الكامل',
                       data: UserStorage.read("name")??"--",
                     ),
-                    ProfileMenuWidget(
-                      title: 'البريد الإلكتروني',
-                      data: UserStorage.read("email")??"--",
-                    ),
+
+
                     ProfileMenuWidget(
                       title: 'الهاتف',
                       data: UserStorage.read("phone")??"--",
                     ),
+                    Text(
+                      'البريد الإلكتروني:',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+
+                    Text(
+                      UserStorage.read("email")??"--",
+                      style: Theme.of(context).textTheme.titleMedium,
+                    )
                   ],
                 ),
               ),
@@ -107,7 +116,26 @@ class ProfileScreen extends GetView<ProfileController> {
                         onConfirm: () {
                           print("confirm");
 
-                          controller.editPassword();
+                          if (TValidator.isValidatePassword(
+                              controller.newPassword.text) &&
+                              (controller.newPassword.text ==
+                                  controller.renewPassword.text)) {
+                            controller.editPassword();
+                          } else {
+                            String? message1 = "", message2 = "";
+                            if (!(TValidator.isValidatePassword(
+                                controller.newPassword.text))) {
+                              message1 = TValidator.validatePassword(
+                                  controller.newPassword.text);
+                            }
+                            if (controller.newPassword.text !=
+                                controller.renewPassword.text) {
+                              message2 = "كلمتا السّر غير متطابقتان";
+                            }
+                            THelperFunctions.showSnackBar(
+                                title: "رسالة خطأ",
+                                message: "$message1 , $message2 ");
+                          }
                         },
                         onCancel: () {
                           print("cancel");

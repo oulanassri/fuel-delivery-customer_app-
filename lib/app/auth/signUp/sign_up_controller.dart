@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import '../../../native_service/get_storage.dart';
 import '../../../routes/app_routes.dart';
 import '../../../utils/constants/api_constants.dart';
+import '../../../utils/helpers/helper_functions.dart';
 import '../../../utils/http/http_client.dart';
 import '../../home/home_controller.dart';
 
@@ -123,13 +124,19 @@ class SignUpController extends GetxController {
 
     login();
       //  Get.offNamed(Routes.HOME);
-      } else {
+      } else if(response.statusCode == 409){ THelperFunctions.showSnackBar(
+          message: 'المستخدم موجود مسبقا', title: 'رسالة خطأ');}else{
+        THelperFunctions.showSnackBar(
+            message: 'حدث خطأ ما يُرجى إعادة المحاولة', title: 'رسالة خطأ');
+        print(response.body);
         throw Exception('Failed to load date: ${response.statusCode}');
       }
       //  storage.save("token", value);
 
     } catch (e) {
       print(e);
+    }finally{
+      isLoading(false);
     }
   }
 
@@ -162,8 +169,13 @@ class SignUpController extends GetxController {
       passwordController.clear();
       HomeController controller = Get.put(HomeController());
       controller.onReady();
+      THelperFunctions.showSnackBar(
+          message: 'تمّ إنشاء الحساب بنجاح', title: 'أهلا بك بتطبيق FuelGo ');
       Get.offNamed(Routes.HOME);
     } catch (e) {
+      THelperFunctions.showSnackBar(
+          message: 'حدث خطأ ما يُرجى إعادة المحاولة', title: 'رسالة خطأ');
+
       print(e);
     }finally{
       isLoading(false);

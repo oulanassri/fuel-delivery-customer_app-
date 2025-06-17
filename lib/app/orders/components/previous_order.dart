@@ -56,17 +56,13 @@ class PreviousOrder extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            "تارخ و وقت الطلب :",
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          Text(
-                            ordersModel.date ?? "",
-                            style: Theme.of(context).textTheme.labelSmall,
-                          ),
-                        ],
+                      Text(
+                        "تارخ و وقت الطلب :",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Text(
+                        ordersModel.date ?? "",
+                        style: Theme.of(context).textTheme.labelSmall,
                       ),
                       open.value == true
                           ? Text(

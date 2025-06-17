@@ -137,6 +137,8 @@ class FuelDemandController extends GetxController {
           message: 'تم إرسال الطلب بنجاح', title: 'تعبئة وقود');
       //
     } catch (e) {
+      THelperFunctions.showSnackBar(
+          message: 'حدث خطأ ما يُرجى إعادة المحاولة', title: 'رسالة خطأ');
       print(e);
     }finally{
       HomeController controller = Get.put(HomeController());

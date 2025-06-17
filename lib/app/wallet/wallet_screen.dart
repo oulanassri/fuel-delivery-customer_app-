@@ -33,7 +33,7 @@ class WalletScreen extends GetView<WalletController> {
               Container(
                 child: Obx(() => controller.isLoading.value
                     ? Center(
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator(color: primaryColor,),
                       )
                     : TotalAmountWidget(
                         amount: controller.wallet,
@@ -48,7 +48,7 @@ class WalletScreen extends GetView<WalletController> {
                     style: Theme.of(context).textTheme.titleLarge,
                   ),Obx(() => controller.isLoading.value
                       ? Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(color: primaryColor,),
                   )
                       : Text(
                     controller.otpCode.value,

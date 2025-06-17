@@ -5,19 +5,21 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import '../../models/city.dart';
-import '../../models/fuel_type.dart';
 import '../../models/neighborhood.dart';
+import '../../routes/app_routes.dart';
+import '../../utils/helpers/helper_functions.dart';
 import '../common/custom_text_form_field1.dart';
 import '../common/navigation_drawer.dart';
 import '../constants.dart';
+import '../properties/properties_controller.dart';
 import 'car_demand_fuel_controller.dart';
 import 'components/car_components/car_card.dart';
 import 'components/car_components/custom_car_sleek_slider.dart';
 import 'components/fuel_type_card.dart';
 
 class CarFuelDemandScreen extends StatelessWidget {
-   CarFuelDemandScreen({Key? key}) : super(key: key);
-  CarFuelDemandController controller=Get.find<CarFuelDemandController>();
+  CarFuelDemandScreen({Key? key}) : super(key: key);
+  CarFuelDemandController controller = Get.find<CarFuelDemandController>();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,10 @@ class CarFuelDemandScreen extends StatelessWidget {
             padding: EdgeInsets.only(),
             child: Obx(
               () => controller.isLoading.value
-                  ? Center(child: CircularProgressIndicator())
+                  ? Center(
+                      child: CircularProgressIndicator(
+                      color: primaryColor,
+                    ))
                   : Padding(
                       padding: EdgeInsets.all(defaultPadding),
                       child: Column(
@@ -87,38 +92,63 @@ class CarFuelDemandScreen extends StatelessWidget {
                               "اختر السيّارة",
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
-                          ),//myCarsListLength
-                         Obx(()=>controller.myCarsListLength.value==0?Center(
-                           child: Text(
-                             "لا يوجد سيّارات ، أضف سيارة إلى الممتلكات",
-                             style: Theme.of(context).textTheme.headlineMedium,
-                           ),
-                         ) :Container(
-                           height: MediaQuery.of(context).size.height / 4,
-                           child: ListView.builder(
-                               itemCount: controller.myCars.length,
-                               scrollDirection: Axis.horizontal,
-                               itemBuilder: (context, index) {
-                                 return Obx(
-                                       () => GestureDetector(
-                                     onTap: () {
-                                       controller.setSelectedCar(
-                                           value: index,
-                                           selectedCarIndex:
-                                           controller.myCars[index].id ??
-                                               0);
-                                     },
-                                     child: CarCard(
-                                       car: controller.myCars[index],
-                                       chosen: controller.selectedCar.value ==
-                                           index
-                                           ? true
-                                           : false,
-                                     ),
-                                   ),
-                                 );
-                               }),
-                         ),),
+                          ), //myCarsListLength
+                          Obx(
+                            () => controller.myCarsListLength.value == 0
+                                ? Center(
+                                    child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: defaultPadding),
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              "لا يوجد سيّارات مضافة ،يُرجى إضافة سيارة إلى الممتلكات بصفحة الممتلكات",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headlineMedium,
+                                            ),
+                                            TextButton(
+                                                onPressed: () { PropertiesController controller = Get.put(PropertiesController());
+
+                                                controller.getProperties();
+                                                Get.toNamed(Routes.PROPERTIES);}, child: Text(
+                                              "الذّهاب إلى صفحة الممتلكات",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headlineMedium?.copyWith( decoration: TextDecoration.underline),
+                                            ),)
+                                          ],
+                                        )),
+                                  )
+                                : Container(
+                                    height:
+                                        MediaQuery.of(context).size.height / 4,
+                                    child: ListView.builder(
+                                        itemCount: controller.myCars.length,
+                                        scrollDirection: Axis.horizontal,
+                                        itemBuilder: (context, index) {
+                                          return Obx(
+                                            () => GestureDetector(
+                                              onTap: () {
+                                                controller.setSelectedCar(
+                                                    value: index,
+                                                    selectedCarIndex: controller
+                                                            .myCars[index].id ??
+                                                        0);
+                                              },
+                                              child: CarCard(
+                                                car: controller.myCars[index],
+                                                chosen: controller.selectedCar
+                                                            .value ==
+                                                        index
+                                                    ? true
+                                                    : false,
+                                              ),
+                                            ),
+                                          );
+                                        }),
+                                  ),
+                          ),
                           Padding(
                             padding: EdgeInsets.only(right: defaultPadding),
                             child: Text(
@@ -126,8 +156,10 @@ class CarFuelDemandScreen extends StatelessWidget {
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                           ),
-                          CustomCarSleekSlider(controller: controller,),
-                          Padding(
+                          CustomCarSleekSlider(
+                            controller: controller,
+                          ),
+                          /*  Padding(
                             padding: EdgeInsets.only(right: defaultPadding),
                             child: Text(
                               "كلفة الخدمة 2\$",
@@ -140,7 +172,7 @@ class CarFuelDemandScreen extends StatelessWidget {
                               "كلفة الخدمة الاجماليّة 80\$",
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
-                          ),
+                          ),*/
                           Obx(
                             () => Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -216,8 +248,7 @@ class CarFuelDemandScreen extends StatelessWidget {
                           ),
                           CustomTextFormField1(
                             hintText: "العنوان بالكامل",
-                            controller:
-                                controller.houseLocationDetailsController,
+                            controller: controller.carLocationDetailsController,
                           ),
                           Text(
                             "يُرجى تحديد موقعك على الخريطة",
@@ -271,8 +302,28 @@ class CarFuelDemandScreen extends StatelessWidget {
                               padding: EdgeInsets.symmetric(horizontal: 100),
                               child: MaterialButton(
                                 onPressed: () {
-                                  controller.placeCarOrder();
-                                 /* Get.defaultDialog(
+                                  if (controller.carLocationDetailsController
+                                              .text.length >
+                                          5 &&
+                                      controller.selectedCarId.value != 0) {
+                                    controller.placeCarOrder();
+                                  } else {
+                                    String message1 = "", message2 = "";
+                                    if (controller.carLocationDetailsController
+                                            .text.length <
+                                        5) {
+                                      message1 =
+                                          "يُرجى تزويدنا بتفاصيل أكثر عن العنوان";
+                                    }
+                                    if (controller.selectedCarId.value == 0) {
+                                      message2 =
+                                          " يُرجى إضافة سيّارة إلى الممتلكات ليكتمل الطلب";
+                                    }
+                                    THelperFunctions.showSnackBar(
+                                        message: '$message1 , $message2',
+                                        title: 'رسالة خطأ');
+                                  }
+                                  /* Get.defaultDialog(
                                       title: "جار البحث",
                                       titleStyle: Theme.of(context)
                                           .textTheme

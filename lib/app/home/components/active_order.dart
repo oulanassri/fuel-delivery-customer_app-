@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -95,6 +96,7 @@ class ActiveOrder extends StatelessWidget {
                     description: 'يتم الآن تعبئة الوقود',
                     image: Assets.imagesStart,
                   ),
+
                   CustomTimeLineItem(
                     isFirst: false,
                     isPast: false,
@@ -108,7 +110,7 @@ class ActiveOrder extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+           /* SizedBox(
               height: defaultPadding,
             ),
             Container(
@@ -221,7 +223,7 @@ class ActiveOrder extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
+            ),*/
             SizedBox(
               height: defaultPadding * 2,
             ),

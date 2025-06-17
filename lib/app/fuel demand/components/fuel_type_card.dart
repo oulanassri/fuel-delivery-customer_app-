@@ -2,7 +2,6 @@ import 'package:delivery_fuel_customer/app/constants.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/fuel_details.dart';
-import '../../../models/fuel_type.dart';
 
 class FuelTypeCard extends StatelessWidget {
   const FuelTypeCard({Key? key, required this.fuelType, required this.chosen}) : super(key: key);

@@ -11,7 +11,9 @@ import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../../../routes/app_routes.dart';
+import '../../../utils/helpers/helper_functions.dart';
 import '../../../utils/http/http_client.dart';
+import '../../../utils/validators/validation.dart';
 import '../../constants.dart';
 import '../components/custom_material_button.dart';
 import '../components/custom_text_form_field.dart';
@@ -45,7 +47,10 @@ class SignUpScreen extends GetView<SignUpController> {
                         duration: Duration(milliseconds: 1000),
                         child: Text(
                           "إنشاء حساب",
-                          style: Theme.of(context).textTheme.headlineMedium,
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .headlineMedium,
                         )),
                     SizedBox(
                       height: 10,
@@ -54,7 +59,10 @@ class SignUpScreen extends GetView<SignUpController> {
                         duration: Duration(milliseconds: 1300),
                         child: Text(
                           "أهلا بك",
-                          style: Theme.of(context).textTheme.headlineSmall,
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .headlineSmall,
                         )),
                   ],
                 ),
@@ -99,7 +107,8 @@ class SignUpScreen extends GetView<SignUpController> {
                                   hintText: "رقم الهاتف",
                                   controller: controller.mobileNumberController,
                                 ),
-                                Obx(() => Container(
+                                Obx(() =>
+                                    Container(
                                       padding: EdgeInsets.all(10),
                                       decoration: BoxDecoration(
                                         border: Border(
@@ -110,7 +119,7 @@ class SignUpScreen extends GetView<SignUpController> {
                                       child: TextField(
                                         obscureText: obscurePassword.value,
                                         controller:
-                                            controller.passwordController,
+                                        controller.passwordController,
                                         decoration: InputDecoration(
                                             suffix: InkWell(
                                               child: Icon(
@@ -122,20 +131,22 @@ class SignUpScreen extends GetView<SignUpController> {
                                               ),
                                               onTap: () {
                                                 obscurePassword.value =
-                                                    !(obscurePassword.value);
+                                                !(obscurePassword.value);
                                               },
                                             ),
                                             label: Text("أدخل كلمة السّر"),
-                                            labelStyle: Theme.of(context)
+                                            labelStyle: Theme
+                                                .of(context)
                                                 .textTheme
                                                 .titleMedium,
                                             hintText: "كلمة السّر",
                                             hintStyle:
-                                                TextStyle(color: Colors.grey),
+                                            TextStyle(color: Colors.grey),
                                             border: InputBorder.none),
                                       ),
                                     )),
-                                Obx(() => Container(
+                                Obx(() =>
+                                    Container(
                                       padding: EdgeInsets.all(10),
                                       decoration: BoxDecoration(
                                         border: Border(
@@ -145,7 +156,7 @@ class SignUpScreen extends GetView<SignUpController> {
                                       ),
                                       child: TextField(
                                         obscureText:
-                                            obscureHiddenPassword.value,
+                                        obscureHiddenPassword.value,
                                         controller: controller
                                             .confirmPasswordController,
                                         decoration: InputDecoration(
@@ -159,18 +170,19 @@ class SignUpScreen extends GetView<SignUpController> {
                                               ),
                                               onTap: () {
                                                 obscureHiddenPassword.value =
-                                                    !(obscureHiddenPassword
-                                                        .value);
+                                                !(obscureHiddenPassword
+                                                    .value);
                                               },
                                             ),
                                             label:
-                                                Text("أدخل كلمة السّر للتحقّق"),
-                                            labelStyle: Theme.of(context)
+                                            Text("أدخل كلمة السّر للتحقّق"),
+                                            labelStyle: Theme
+                                                .of(context)
                                                 .textTheme
                                                 .titleMedium,
                                             hintText: "كلمة السّر للتحقّق",
                                             hintStyle:
-                                                TextStyle(color: Colors.grey),
+                                            TextStyle(color: Colors.grey),
                                             border: InputBorder.none),
                                       ),
                                     )),
@@ -181,34 +193,108 @@ class SignUpScreen extends GetView<SignUpController> {
                         height: 40,
                       ),
                       FadeInUp(
-                        duration: Duration(milliseconds: 1600),
-                        child: Obx(()=>controller.isLoading.value
-                            ? MaterialButton(
-                          onPressed: () {},
-                          height: 50,
-                          // margin: EdgeInsets.symmetric(horizontal: 50),
-                          color: primaryButton,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          // decoration: BoxDecoration(
-                          // ),
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              color: primaryColor,
+                          duration: Duration(milliseconds: 1600),
+                          child: Obx(() =>
+                          controller.isLoading.value
+                              ? MaterialButton(
+                            onPressed: () {},
+                            height: 50,
+                            // margin: EdgeInsets.symmetric(horizontal: 50),
+                            color: primaryButton,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
                             ),
-                          ),
-                        )
-                            : CustomMaterialButton(
-                          route: Routes.HOME,
-                          text: "إنشاء الحساب",
-                          buttonColor: secondaryColor,
-                          textColor: white,
-                          function: () {
-//controller.getCities();
-                            controller.register();
-                          },
-                        ),)
+                            // decoration: BoxDecoration(
+                            // ),
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                color: primaryColor,
+                              ),
+                            ),
+                          )
+                              : CustomMaterialButton(
+                            route: Routes.HOME,
+                            text: "إنشاء الحساب",
+                            buttonColor: secondaryColor,
+                            textColor: white,
+                            function: () {
+                              if (TValidator.isValidateName(
+                                  controller
+                                      .userNameController.text) &&
+                                  TValidator.isValidatePhoneNumber(
+                                      controller
+                                          .mobileNumberController
+                                          .text) &&
+                                  TValidator.isValidateEmail(
+                                      controller
+                                          .emailController
+                                          .text) &&
+                                  TValidator.isValidatePassword(
+                                      controller.passwordController.text) &&
+                                  (controller.passwordController.text ==
+                                      controller.confirmPasswordController
+                                          .text)) {
+                                controller.register();
+                              } else {
+                                String? message1 = "",
+                                    message2 = "",
+                                    message3 = "",
+                                    message4 = "",
+                                    message5 = "";
+
+                                if (!(TValidator.isValidateName(
+                                    controller.userNameController
+                                        .text))) {
+                                  message1 =
+                                      TValidator.validateName(
+                                          controller
+                                              .userNameController
+                                              .text);
+                                }
+                                if (!(TValidator
+                                    .isValidatePhoneNumber(
+                                    controller
+                                        .mobileNumberController
+                                        .text))) {
+                                  message2 = TValidator
+                                      .validatePhoneNumber(
+                                      controller
+                                          .mobileNumberController
+                                          .text);
+                                }
+                                if (!(TValidator
+                                    .isValidateEmail(
+                                    controller
+                                        .emailController
+                                        .text))) {
+                                  message3 = TValidator
+                                      .validateEmail(
+                                      controller
+                                          .emailController
+                                          .text);
+                                }
+                                if (!(TValidator
+                                    .isValidatePassword(
+                                    controller
+                                        .passwordController
+                                        .text))) {
+                                  message4 = TValidator
+                                      .validatePassword(
+                                      controller
+                                          .passwordController
+                                          .text);
+                                }
+                                if (controller.passwordController.text !=
+                                    controller.confirmPasswordController.text) {
+                                  message5 = "كلمتا السّر غير متطابقتان";
+                                }
+                                THelperFunctions.showSnackBar(
+                                    title: "رسالة خطأ",
+                                    message:
+                                    "$message1 , $message2 , $message3 , $message4, $message5");
+                              }
+                            },
+                          ),)
                       ),
                     ],
                   ),

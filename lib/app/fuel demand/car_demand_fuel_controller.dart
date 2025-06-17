@@ -41,15 +41,15 @@ class CarFuelDemandController extends GetxController {
   late RxInt selectedCityId = 1.obs;
   late RxInt selectedNeighborhoodId = 1.obs;
   Rx<String?> selectedNeighborhood = "المزة".obs;
-  TextEditingController houseLocationDetailsController =
+  TextEditingController carLocationDetailsController =
   TextEditingController();
 
   List<CustomerCars> myCars = [];
   final isUploading = false.obs;
-  List<CityModel> cities = [];
+  List cities = [].obs;
   RxInt myCarsListLength=0.obs;
 
-  List<NeighborhoodModel> neighborhoodes = [];
+  List neighborhoodes = [].obs;
   static final String _baseUrl = APIConstants.baseUrl;
 
   // List<SearchInfo> items = [];
@@ -170,7 +170,7 @@ class CarFuelDemandController extends GetxController {
       Map data ={
         "customerLat": latitude,
         "customerLong": longitude,
-        "locationDescription": houseLocationDetailsController.text,
+        "locationDescription": carLocationDetailsController.text,
         "neighborhoodId": selectedNeighborhoodId.value,
         "cityId": selectedCityId.value,
         "fuelTypeId": selectedFuelTypeId.value,
@@ -185,8 +185,11 @@ class CarFuelDemandController extends GetxController {
           message: 'تم إرسال الطلب بنجاح', title: 'تعبئة وقود');
       //
     } catch (e) {
+      THelperFunctions.showSnackBar(
+          message: 'حدث خطأ ما يُرجى إعادة المحاولة', title: 'رسالة خطأ');
       print(e);
     }finally{
+
       HomeController controller = Get.put(HomeController());
       controller.onReady();
       Get.toNamed(Routes.HOME);
@@ -195,7 +198,7 @@ class CarFuelDemandController extends GetxController {
   Future<void> getCities() async {
 
     print("getCities");
-    try {isLoading(true);
+    try {
     final response = await http.get(
         Uri.parse('$_baseUrl${APIConstants.endPoints.getCities}'),
         headers: {
@@ -213,15 +216,13 @@ class CarFuelDemandController extends GetxController {
     }
     } catch (e) {
       print(e);
-    } finally {
-      isLoading(false);
     }
   }
 
   Future<void> getNeighborhood({required int cityId}) async {
 
     print("getNeighborhood");
-    try {isLoading(true);
+    try {
     final response = await http.get(
         Uri.parse(
             '$_baseUrl${APIConstants.endPoints.getNeighborhood}?cityId=$cityId'),
@@ -247,8 +248,6 @@ class CarFuelDemandController extends GetxController {
     }
     } catch (e) {
       print(e);
-    } finally {
-      isLoading(false);
     }
   }
 

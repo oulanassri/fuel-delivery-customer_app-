@@ -17,21 +17,41 @@ class SplashScreen extends GetView<SplashController> {
       // backgroundColor: Themes.BackgroundColor,
       body: Container(
         decoration: BoxDecoration(gradient: gradientColorBg),
-        child: Center(
-            child: AnimatedSplashScreen(
-          backgroundColor: Colors.transparent.withOpacity(0),
-          animationDuration: const Duration(milliseconds: 2300),
-          splashIconSize: 500,
-          splashTransition: SplashTransition.scaleTransition,
-          splash: Center(
-            child: Image.asset(
-              Assets.imagesLogo,
-              fit: BoxFit.cover,
-              width: 200,
+        child: /*Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Image.asset(
+                Assets.imagesLogo,
+                fit: BoxFit.cover,
+                width: 200,
+              ),
             ),
+            Text(
+              "Fuel Go Customer",
+              textAlign: TextAlign.center,
+              style:
+              TextStyle(letterSpacing: 3, fontSize: 26, color: Colors.grey),
+            ),
+          ],
+        )*/
+            Center(
+          child: AnimatedSplashScreen(
+            backgroundColor: Colors.transparent.withOpacity(0),
+            animationDuration: const Duration(milliseconds: 2300),
+            splashIconSize: 500,
+            splashTransition: SplashTransition.scaleTransition,
+            splash: Center(
+              child: Image.asset(
+                Assets.imagesLogo,
+                fit: BoxFit.cover,
+                width: 200,
+              ),
+            ),
+            nextScreen: const LogInScreen(),
           ),
-          nextScreen: const LogInScreen(),
-        )),
+        ),
       ),
     );
   }

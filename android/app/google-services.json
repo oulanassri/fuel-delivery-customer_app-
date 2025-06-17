@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "949068927606",
+    "project_id": "fuel-deleviry",
+    "storage_bucket": "fuel-deleviry.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:949068927606:android:cedfa2c246bbe0e5d3c557",
+        "android_client_info": {
+          "package_name": "com.example.deliveryfuelcustomer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4AQJBOv-Jw5tr35FTJkyQF44exRycEMA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

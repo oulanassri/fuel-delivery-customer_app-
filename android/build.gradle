@@ -1,3 +1,16 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        // هنا يمكنك إضافة التبعيات
+        classpath 'com.android.tools.build:gradle:7.0.4' // تأكد من استخدام النسخة المناسبة
+        classpath 'com.google.gms:google-services:4.4.2' // إضافة هذه السطر
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.10"
+    }
+}
+
 allprojects {
     repositories {
         google()

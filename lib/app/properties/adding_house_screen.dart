@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 
 import '../../models/city.dart';
 import '../../models/neighborhood.dart';
+import '../../utils/helpers/helper_functions.dart';
 import '../common/custom_app_bar.dart';
 import '../common/custom_text_form_field1.dart';
 import '../constants.dart';
@@ -16,7 +17,7 @@ class AddingHouseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    controller.getCities();
+   // controller.getCities();
     return Scaffold(
       appBar: CustomAppBar(
         title: "إضافة منزل",
@@ -172,7 +173,15 @@ class AddingHouseScreen extends StatelessWidget {
                         child: MaterialButton(
                           onPressed: () {
                             // Get.toNamed(Routes.ADDINGHOUSESCREEN);
-                            controller.addApartment();
+                            if(controller.houseLocationDetailsController.text.isNotEmpty
+                            ) {
+                              controller.addApartment();
+                            }else{
+                              THelperFunctions.showSnackBar(
+                                  title: "رسالة خطأ",
+                                  message:
+                                  "يُرجى إدخال تفاصيل العنوان بالكامل");
+                            }
                           },
                           height: 50,
                           // margin: EdgeInsets.symmetric(horizontal: 50),
