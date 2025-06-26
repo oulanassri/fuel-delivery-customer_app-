@@ -25,7 +25,7 @@ class HomeScreen extends GetView<HomeController> {
     Get.put(HomeController());
     NetworkController networkController = Get.find();
 
-    if (controller.orderStatusId.value == 4) {
+   /* if (controller.orderStatusId.value == 4) {
       Get.defaultDialog(
         onCancel: null,
         cancelTextColor: null,
@@ -47,7 +47,7 @@ class HomeScreen extends GetView<HomeController> {
           ],
         ),
       );
-    }
+    }*/
     return Scaffold(
       drawer: CustomNavigationDrawer(),
       appBar: CustomAppBar(
@@ -77,7 +77,11 @@ class HomeScreen extends GetView<HomeController> {
                   gradient: gradientColorBg,
                 ),
                 child: Center(
-                  child: Text("No Internet"),
+                  child:  Image.asset(
+                    "assets/images/no_internet.png",
+                    fit: BoxFit.cover,
+                    width: 200,
+                  ),
                 ),
               ),
       ),

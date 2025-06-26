@@ -21,9 +21,42 @@ class ActiveOrder extends StatelessWidget {
           .obs;*/
 
   ActiveOrder({Key? key, required this.controller}) : super(key: key);
-
+  final RxBool _dialogShown = false.obs;
+  
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      print("------------------------");
+      print("إنتهاء عملية التعبئة");
+      print("------------------------");
+
+      if (controller.orderStatusId.value == 4 && !_dialogShown.value) {
+        _dialogShown.value = true;
+
+        Get.defaultDialog(
+          title: "تم إنهاء التعبئة",
+          middleText: "تم تنفيذ الطلب بنجاح",
+          confirm: Text("موافق"),
+          onConfirm: () {
+            Get.back(); // إغلاق الـ dialog
+            controller.orderStatusId.value = 10; // ← يعرض صفحة Home
+          },
+          barrierDismissible: false,
+          content: Column(
+            children: [
+              SizedBox(height: 10),
+              Image.asset(
+                Assets.imagesOrderDone,
+                height: 80,
+                width: 80,
+                fit: BoxFit.contain,
+              ),
+            ],
+          ),
+        );
+      }
+    });
+
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: defaultPadding),
@@ -110,7 +143,7 @@ class ActiveOrder extends StatelessWidget {
                 ],
               ),
             ),
-           /* SizedBox(
+            SizedBox(
               height: defaultPadding,
             ),
             Container(
@@ -146,7 +179,7 @@ class ActiveOrder extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: primaryColor.withOpacity(0.1),
                             borderRadius: BorderRadius.circular(12)),
-                        child: Icon(Icons.local_shipping_rounded),
+                        child: Icon(Icons.code_outlined),
                       ),
                       SizedBox(
                         width: 5,
@@ -155,7 +188,7 @@ class ActiveOrder extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "رقم اللّوحة:",
+                            "رمز المصادقة:",
                             style: Theme
                                 .of(context)
                                 .textTheme
@@ -165,7 +198,7 @@ class ActiveOrder extends StatelessWidget {
                             height: 4,
                           ),
                           Text(
-                            "223344",
+                            controller.authCode.toString(),
                             style: Theme
                                 .of(context)
                                 .textTheme
@@ -179,6 +212,46 @@ class ActiveOrder extends StatelessWidget {
                     height: defaultPadding,
                   ),
                   Divider(),
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(defaultPadding * 3 / 4),
+                        decoration: BoxDecoration(
+                            color: primaryColor.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(12)),
+                        child: Icon(Icons.person),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "اسم السائق:",
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .labelMedium,
+                          ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            controller.driverName.toString(),
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .titleMedium,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: defaultPadding,
+                  ),
+
                   SizedBox(
                     height: defaultPadding,
                   ),
@@ -189,7 +262,7 @@ class ActiveOrder extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: primaryColor.withOpacity(0.1),
                             borderRadius: BorderRadius.circular(12)),
-                        child: Icon(Icons.location_on_outlined),
+                        child: Icon(Icons.phone_enabled),
                       ),
                       SizedBox(
                         width: 5,
@@ -198,7 +271,7 @@ class ActiveOrder extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "موقع الشّاحنة:",
+                            "رقم السّائق:",
                             style: Theme
                                 .of(context)
                                 .textTheme
@@ -210,7 +283,7 @@ class ActiveOrder extends StatelessWidget {
                           SizedBox(
                             width: 250,
                             child: Text(
-                              "المدينة + الحيّ + تفاصيل عن الموقع تفاصيل عن الموقع",
+                                controller.driverPhone.toString(),
                               style: Theme
                                   .of(context)
                                   .textTheme
@@ -223,7 +296,7 @@ class ActiveOrder extends StatelessWidget {
                   ),
                 ],
               ),
-            ),*/
+            ),
             SizedBox(
               height: defaultPadding * 2,
             ),

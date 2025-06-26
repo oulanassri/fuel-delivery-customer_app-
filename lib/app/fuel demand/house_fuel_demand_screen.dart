@@ -107,7 +107,19 @@ class HouseFuelDemandScreen extends GetView<FuelDemandController> {
                                       "الذّهاب إلى صفحة الممتلكات",
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headlineMedium?.copyWith( decoration: TextDecoration.underline),
+                                          .headlineMedium?.copyWith( shadows: [
+                                        Shadow(
+                                            color: Colors.black,
+                                            offset: Offset(0, -5))
+                                      ],
+                                          color:
+                                          Colors.transparent,
+                                          decoration:
+                                          TextDecoration
+                                              .underline,
+                                          decorationThickness: 20,
+                                          decorationColor:
+                                          Colors.black),
                                     ),)
                                   ],
                                 )),

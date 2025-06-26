@@ -10,6 +10,7 @@ class Assets {
   static const String imagesGasolineFuelGo = 'assets/images/Gasoline_FuelGo.png';
   static const String imagesHomeFuelGo = 'assets/images/Home_FuelGo.png';
   static const String imagesLogo = 'assets/images/logo.png';
+  static const String imagesNoInternet = 'assets/images/no_internet.png';
   static const String imagesOntheway = 'assets/images/ontheway.png';
   static const String imagesOrderDone = 'assets/images/order_done.png';
   static const String imagesStart = 'assets/images/Start.png';

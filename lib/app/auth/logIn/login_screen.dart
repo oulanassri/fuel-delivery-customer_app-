@@ -124,15 +124,7 @@ class LogInScreen extends GetView<LoginController> {
                               ],
                             ),
                           )),
-                      SizedBox(
-                        height: 40,
-                      ),
-                      FadeInUp(
-                          duration: Duration(milliseconds: 1500),
-                          child: Text(
-                            "هل نسيت كلمة السّر",
-                            style: TextStyle(color: Colors.grey),
-                          )),
+
                       SizedBox(
                         height: 40,
                       ),

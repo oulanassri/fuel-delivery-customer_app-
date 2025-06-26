@@ -43,4 +43,7 @@ class _EndPoints {
 
   final String getFuelDetails = "/api/FuelDetails/get-fuel-details";//GET True
 
+  final String getProfile = "/api/User/get-profile";
+  final String getAuthCode = "/api/Order/get-authcode";
+
 }

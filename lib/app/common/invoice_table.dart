@@ -49,7 +49,7 @@ class InvoiceTable extends StatelessWidget {
                     context: context,
                     serviceName: ordersModel.fuelTypeName ?? "",
                     quantity: ordersModel.finalQuantity ??  ordersModel.orderedQuantity.toString()??"",
-                    amount: '${ordersModel.price ?? ""}\$',),
+                    amount: ordersModel.price ?? "",),
 
               ],
             ),

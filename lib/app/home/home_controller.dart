@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:delivery_fuel_customer/models/auth_code_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
@@ -17,6 +18,8 @@ import '../../utils/constants/api_constants.dart';
 import '../../utils/http/http_client.dart';
 
 class HomeController extends GetxController {
+  static final String token = UserStorage.read('token');
+
   Position? currentLocation;
   var locationMessage = "";
   var isLoading = false.obs;
@@ -24,9 +27,13 @@ class HomeController extends GetxController {
   List<CustomerApartments> myApartments = [];
   Position? currentPosition;
   String? currentAddress;
+   AuthCodeModel authCodeModel=AuthCodeModel();
   late TruckOrderModel truckOrderModel;//قيد الانتظار
   RxString orderStatus = "".obs; // InProgress //home وصل للموقع5 قيد الانتظار  في الطريق4  بدء تعبئة الطلب6
   RxInt orderStatusId = 10.obs;
+  RxString driverName="".obs;
+  RxString driverPhone="".obs;
+  RxString authCode="".obs;
  // StreamController streamController = StreamController();
 /*  final channel = IOWebSocketChannel.connect(
       Uri.parse("http://172.201.110.216:5000")); */
@@ -48,6 +55,7 @@ class HomeController extends GetxController {
   //  streamController = StreamController();
     Timer.periodic(Duration(seconds: 3), (timer){
       getTruckOrder();
+      getAuthCode();
     });
     super.onReady();
   }
@@ -144,7 +152,8 @@ class HomeController extends GetxController {
      }
      else{
        orderStatusId.value = 4;
-
+       //adding
+       //orderStatusId.value = 10;
      }
    } else {
      orderStatusId.value = 10;
@@ -242,6 +251,42 @@ class HomeController extends GetxController {
       myCars = propertiesModel.customerCars!;
       myApartments = propertiesModel.customerApartments!;
       //Get.back();
+    } catch (e) {
+      print(e);
+    } finally {
+      isLoading(false);
+    }
+  }
+  Future<void> getAuthCode() async {
+    print("getAuthCode");
+    try {
+      isLoading(true);
+      final response = await http.get(
+          Uri.parse(
+              '${APIConstants.baseUrl}${APIConstants.endPoints.getAuthCode}'),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token'
+          });print(response.statusCode);
+      print(response.body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Map<String, dynamic> body = json.decode(response.body);
+         authCodeModel = AuthCodeModel.fromJson(body);
+        driverName.value=authCodeModel.driverName??"";
+        driverPhone.value=authCodeModel.driverPhone??"";
+         authCode.value=authCodeModel.authCode??"";
+        print(authCodeModel.driverName);
+        print(authCodeModel.authCode);
+        print(authCodeModel.driverPhone);
+
+        //  print("ordersListLength ${ordersListLength.toString()}");
+        isLoading(false);
+      } else {
+        print(response.body);
+        throw Exception('Failed to load date: ${response.statusCode}');
+      }
+
     } catch (e) {
       print(e);
     } finally {

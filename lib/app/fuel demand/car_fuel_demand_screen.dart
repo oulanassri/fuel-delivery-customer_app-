@@ -108,15 +108,35 @@ class CarFuelDemandScreen extends StatelessWidget {
                                                   .headlineMedium,
                                             ),
                                             TextButton(
-                                                onPressed: () { PropertiesController controller = Get.put(PropertiesController());
+                                              onPressed: () {
+                                                PropertiesController
+                                                    controller = Get.put(
+                                                        PropertiesController());
 
                                                 controller.getProperties();
-                                                Get.toNamed(Routes.PROPERTIES);}, child: Text(
-                                              "الذّهاب إلى صفحة الممتلكات",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headlineMedium?.copyWith( decoration: TextDecoration.underline),
-                                            ),)
+                                                Get.toNamed(Routes.PROPERTIES);
+                                              },
+                                              child: Text(
+                                                "الذّهاب إلى صفحة الممتلكات",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headlineMedium
+                                                    ?.copyWith(
+                                                        shadows: [
+                                                      Shadow(
+                                                          color: Colors.black,
+                                                          offset: Offset(0, -5))
+                                                    ],
+                                                        color:
+                                                            Colors.transparent,
+                                                        decoration:
+                                                            TextDecoration
+                                                                .underline,
+                                                        decorationThickness: 20,
+                                                        decorationColor:
+                                                            Colors.black),
+                                              ),
+                                            )
                                           ],
                                         )),
                                   )
