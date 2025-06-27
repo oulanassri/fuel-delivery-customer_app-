@@ -8,12 +8,13 @@ import 'helper_functions.dart';
 
 class NetworkController extends GetxController {
   int connectionType = 0;
-  final RxString connectstatus=''.obs;
+  final RxString connectstatus = ''.obs;
   final Connectivity connectivity = Connectivity();
-late StreamSubscription _streamSubscription;
+  late StreamSubscription _streamSubscription;
+
   @override
   void onInit() {
-   // GetConnectionType();
+    // GetConnectionType();
     //_streamSubscription=_
     connectivity.onConnectivityChanged.listen(updateConnectionStatus);
     super.onInit();
@@ -23,28 +24,28 @@ late StreamSubscription _streamSubscription;
   void onClose() {
     // TODO: implement onClose
   }
-void updateConnectionStatus(List<ConnectivityResult>connectivityResultList){
-    if(connectivityResultList.contains(ConnectivityResult.mobile)){
-      print("Mobile Internet");
-      connectstatus.value="Mobile Internet";
-    }
-    else if(connectivityResultList.contains(ConnectivityResult.vpn)){
-      print("VPN");
-      connectstatus.value="VPN";
-    }
-    else if(connectivityResultList.contains(ConnectivityResult.none)){
-      print("offline");
-      connectstatus.value="offline";
-    }
-    else if(connectivityResultList.contains(ConnectivityResult.other)){
-      print("other");
-      connectstatus.value="other";
-    }else{
-      connectstatus.value="Something Was Wrong";
 
+  void updateConnectionStatus(List<ConnectivityResult> connectivityResultList) {
+    if (connectivityResultList.contains(ConnectivityResult.mobile)) {
+      print("Mobile Internet");
+      connectstatus.value = "Mobile Internet";
+    } else if (connectivityResultList.contains(ConnectivityResult.wifi)) {
+      print("WIFI");
+      connectstatus.value = "WIFI";
+    } else if (connectivityResultList.contains(ConnectivityResult.vpn)) {
+      print("VPN");
+      connectstatus.value = "VPN";
+    } else if (connectivityResultList.contains(ConnectivityResult.none)) {
+      print("offline");
+      connectstatus.value = "offline";
+    } else if (connectivityResultList.contains(ConnectivityResult.other)) {
+      print("other");
+      connectstatus.value = "other";
+    } else {
+      connectstatus.value = "Something Was Wrong";
     }
-}
- /*Future<void> GetConnectionType() async{
+  }
+/*Future<void> GetConnectionType() async{
     var connectiveResult;
     try {
       connectiveResult=await (_connectivity.checkConnectivity());

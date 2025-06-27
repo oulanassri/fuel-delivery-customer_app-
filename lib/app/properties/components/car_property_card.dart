@@ -25,9 +25,9 @@ class CarPropertyCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Container(
+            SizedBox(
               // height: 100,
-              width: MediaQuery.of(context).size.width / 3,
+              width: MediaQuery.of(context).size.width / 4,
               child: Image.asset(
                 "assets/images/Car_FuelGo.png",
                 //  fit: BoxFit.cover,
@@ -55,12 +55,12 @@ class CarPropertyCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.centerLeft,
+                  Container(width: 200,
+                   alignment: Alignment.center,
                     child: Text(
                       " ${car.brand} ${car.model}",
                       style: TextStyle(
-                        fontSize: 26,
+                        fontSize: 20,
                         fontFamily: 'Tajawal',
                         fontWeight: FontWeight.w600,
                         color: secondaryText,
