@@ -116,7 +116,7 @@ class ActiveOrder extends StatelessWidget {
                     isCompleted:  controller.orderStatusId.value >=2,
                     status: 'تمّ وصول الشّاحنة',
                     date: 'Feb 10, 2025 - 10:00AM',
-                    description: 'هذا رمز المصادقة 1225 قم بإعطاءه للسائق',
+                    description: 'يُرجى إعطاء السّائق رمز المصادقة الموجود بتفاصيل الطّلب',
                     image: Assets.imagesArrivedTruck,
                   ),
                   CustomTimeLineItem(
