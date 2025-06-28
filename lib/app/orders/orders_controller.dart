@@ -42,6 +42,7 @@ RxInt ordersListLength=0.obs;
       print(response.body);
       if (response.statusCode == 200 || response.statusCode == 201) {
         List<dynamic> body = json.decode(response.body);
+        print(body);
 print(body.length.toString());
         orders.clear();
         for (int i = 0; i < body.length; i++) {
@@ -59,6 +60,8 @@ print(body.length.toString());
               customerCarBrand: body[i]["customerCarBrand"].toString(),
               customerApartmentName: body[i]["customerApartmentName"].toString(),
               authCode: body[i]["authCode"].toString(),
+              customerName: body[i]["customerName"].toString(),
+              customerPhone: body[i]["customerPhone"].toString(),
             ),
           );
         }
